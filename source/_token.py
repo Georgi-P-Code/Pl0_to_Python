@@ -21,7 +21,4 @@ class Token:
             return f'{self.type_.name}'
 
         else:
-            if self.type_ == Token_type.STRING:
-                return f'{self.type_.name} = "{self.value}"'
-            else:
-                return f'{self.type_.name} = {self.value}'
+            return f'{self.type_.name} = {self.value}'
