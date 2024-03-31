@@ -1,11 +1,11 @@
 program = block "." ;
 
-block = [ "const" ident "=" number {"," ident "=" number} ";"]
-        [ "var" ident {"," ident} ";"]
-        { "procedure" ident ";" block ";" } statement ;
+block = [ "const" identifier "=" number {"," identifier "=" number} ";"]
+        [ "var" identifier {"," identifier} ";"]
+        { "procedure" identifier ";" block ";" } statement ;
 
-statement = [ ident ":=" expression | "call" ident 
-              | "?" ident | "!" expression 
+statement = [ identifier ":=" expression | "call" identifier
+              | "?" identifier | "!" expression
               | "begin" statement {";" statement } "end" 
               | "if" condition "then" statement 
               | "while" condition "do" statement ];
@@ -13,8 +13,8 @@ statement = [ ident ":=" expression | "call" ident
 condition = "odd" expression |
             expression ("="|"#"|"<"|"<="|">"|">=") expression ;
 
-expression = [ "+"|"-"] term { ("+"|"-") term};
+expression = ["+"|"-"] term { ("+"|"-") term};
 
 term = factor {("*"|"/") factor};
 
-factor = ident | number | "(" expression ")";
+factor = identifier | number | "(" expression ")";
