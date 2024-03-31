@@ -20,7 +20,6 @@ class Tokenizer:
             return [Token(Token_type.EOF, line_number= 1, position_number= 0)]
 
         self.position = 0
-        self.position_in_current_line = 0
         self.tokens = []
         self.line_number = 1
 
@@ -48,7 +47,7 @@ class Tokenizer:
 
             elif char == " ":
                 if not self.ignore_space:
-                    self.tokens.append(Token(Token_type.SPACE))
+                    self.tokens.append(Token(Token_type.SPACE, line_number=self.line_number))
 
             elif char == "(":
                 self.tokens.append(Token(Token_type.LEFT_PARENTHESIS))
@@ -103,7 +102,7 @@ class Tokenizer:
 
             elif char == "\n":
                 if not self.ignore_new_line:
-                    self.tokens.append(Token(Token_type.NEW_LINE))
+                    self.tokens.append(Token(Token_type.NEW_LINE, line_number=self.line_number))
                 self.line_number += 1
 
             elif char.isalpha() or char == "_":
@@ -116,17 +115,9 @@ class Tokenizer:
             else:
                 raise Exception(f"Unknown character {char} at line {self.line_number}")
 
-            if char == "\n":
-                if not self.ignore_new_line:
-                    self.tokens[-1].line_number = self.line_number-1
 
-            elif char == " ":
-                if not self.ignore_space:
-                    self.tokens[-1].line_number = self.line_number
-
-            else:
-                if self.tokens[-1].line_number == -1:
-                    self.tokens[-1].line_number = self.line_number
+            if self.tokens[-1].line_number == -1:
+                self.tokens[-1].line_number = self.line_number
 
             self.position += 1
 

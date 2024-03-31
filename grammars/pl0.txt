@@ -2,7 +2,8 @@ program = block "." ;
 
 block = [ "const" identifier "=" number {"," identifier "=" number} ";"]
         [ "var" identifier {"," identifier} ";"]
-        { "procedure" identifier ";" block ";" } statement ;
+        { "procedure" identifier ";" block ";" }
+        statement ;
 
 statement = [ identifier ":=" expression | "call" identifier
               | "?" identifier | "!" expression
@@ -13,8 +14,8 @@ statement = [ identifier ":=" expression | "call" identifier
 condition = "odd" expression |
             expression ("="|"#"|"<"|"<="|">"|">=") expression ;
 
-expression = ["+"|"-"] term { ("+"|"-") term};
+expression = term { ("+"|"-") term};
 
 term = factor {("*"|"/") factor};
 
-factor = identifier | number | "(" expression ")";
+factor = identifier | number | ("+"|"-") factor | "(" expression ")";
