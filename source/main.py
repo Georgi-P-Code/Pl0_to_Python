@@ -1,4 +1,5 @@
 import json
+from os import path, mkdir
 
 from tokenizer import Tokenizer
 from parsers import Pl0_parser_v1
@@ -9,7 +10,7 @@ from exceptions import Invalid_syntax
 
 def main():
 
-    path_to_file = "../programs/example_1.pl0"
+    path_to_file = "../programs/example_2.pl0"
     file_name = path_to_file[path_to_file.rfind("/")+1:path_to_file.rfind(".")]
 
     input_text = load_program(path_to_file)
@@ -43,10 +44,22 @@ def main():
 
 def execute(input_text: str, file_name: str="untitled", ignore_new_line=True, save_ast=False):
     tokens = Tokenizer(input_text, ignore_new_line=ignore_new_line).tokenize()
+
+    #try:
     ast = Pl0_parser_v1(tokens, input_text).parse()
+    # except Invalid_syntax as err:
+    #     return tokens, err, ""
 
     if save_ast:
-        with open(f"../programs/{file_name}.ast", "w") as f:
+        path_to_file_dir = f"../debugging/{file_name}"
+
+        if path.exists(path_to_file_dir):
+            assert path.isdir(path_to_file_dir)
+        else:
+            mkdir(path_to_file_dir)
+
+
+        with open(f"{path_to_file_dir}/{file_name}_ast.json", "w") as f:
             f.write(json.dumps(ast, indent=2))
 
     output_text = Translator(ast).translate()

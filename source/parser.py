@@ -18,21 +18,31 @@ class Parser:
             return None
 
 
-    def check_token(self, token_type: Token_type, token_value=None):
+    def check_token(self, token_type: Token_type, token_value=None, case_sensitive=False):
+
         current_token = self.current_token()
+
+        if not case_sensitive and token_value:
+            assert type(token_value) == str, \
+                f"Case sensitive option turned on for non string value ({token_value}) (token_type:{token_type})"
 
         if current_token.type_ != token_type:
             return None
 
         if token_value is not None:
-            if current_token.value != token_value:
+            if token_value != (current_token.value if case_sensitive else current_token.value.lower()):
                 return None
 
         return current_token
 
 
-    def match(self, expected_token_type: Token_type, expected_token_value=None) -> Token | Invalid_syntax:
+    def match(self, expected_token_type: Token_type, expected_token_value=None, case_sensitive=False) -> Token | Invalid_syntax:
+
         current_token = self.current_token()
+
+        if not case_sensitive and expected_token_value:
+            assert type(expected_token_value) == str, \
+                f"Case sensitive option turned on for non string value ({expected_token_value}) (token_type:{expected_token_type})"
 
         if current_token.type_ != expected_token_type:
             if_expected_token_value = f' ({expected_token_value})' if expected_token_value is not None else ""
@@ -44,7 +54,7 @@ class Parser:
             )
 
         if expected_token_value is not None:
-            if current_token.value != expected_token_value:
+            if expected_token_value != (current_token.value if case_sensitive else current_token.value.lower()):
                 self.syntax_error(f'Expected token value {expected_token_value}, but got {current_token.value}')
 
         self.position += 1

@@ -40,6 +40,11 @@ class Translator:
             case "variable_declarations":
                 result = self.evaluate_variable_declarations(node)
 
+            case "procedure_definitions":
+                self.indent()
+                result = self.evaluate_procedure_definitions(node)
+                self.undent()
+
             case "begin_block":
                 result = self.evaluate_begin_block(node)
 
@@ -48,14 +53,17 @@ class Translator:
                 result = self.evaluate_while_loop(node)
                 self.undent()
 
-            case "loop_condition":
-                result = self.evaluate_loop_condition(node)
-
-            case "loop_statement":
-                result = self.evaluate_loop_statement(node)
+            case "condition":
+                result = self.evaluate_condition(node)
 
             case "statement":
                 result = self.evaluate_statement(node)
+
+            case "call":
+                result = self.evaluate_call(node)
+
+            case "exclamation":
+                result = self.evaluate_exclamation(node)
 
             case "binary_operation":
                 result = self.evaluate_binary_operation(node)
@@ -68,10 +76,6 @@ class Translator:
 
             case "number":
                 result = self.evaluate_number(node)
-
-            case "term":
-                #return
-                raise Exception("TODO term") #'":)"'
 
             case _:
                 raise Exception(f"Don't know how to evaluate node of type \"{node_type}\"")
@@ -88,17 +92,17 @@ class Translator:
         child_node = self.get_value(node)
 
         block_components = []
+        #list_of_used_variable_names = []
 
         for node_name, node in child_node.items():
-            new_node = {node_name: node}
-            #print("new node", new_node)
-            evaluation = self.evaluate(new_node)
+            evaluation = self.evaluate({node_name: node})
+
             if evaluation != "":
                 block_components.append(evaluation)
 
         out = self.indented_new_line().join(block_components)
 
-        return out
+        return out#, list_of_used_variable_names
 
 
     def evaluate_constant_declarations(self, node):
@@ -134,9 +138,37 @@ class Translator:
 
             #self.variables.append(variable_name)
 
-        out += self.indented_new_line().join(declarations)
+        out += self.indented_new_line().join(declarations) + self.indented_new_line()
 
-        return ""#out
+        return out
+
+
+    def evaluate_procedure_definitions(self, node):
+        list_of_procedure_definitions = self.get_value(node)
+
+        list_of_procedure_definition_results = []
+        #out = ""
+
+        for procedure_definition in list_of_procedure_definitions:
+            asd = procedure_definition["procedure_name"]
+            procedure_name = self.evaluate(asd)
+            procedure_body = self.evaluate(procedure_definition["procedure_body"]) #, list_of_used_variable_names
+
+            #list_of_used_variable_names = []
+
+            # if list_of_used_variable_names:
+            #     if_variables = f'{self.indented_new_line()}global {", ".join(list_of_used_variable_names)}'
+            # else:
+            #     if_variables = ""
+            if_variables = ""
+
+            definition_str = f'def {procedure_name}():' \
+                             f'{if_variables}' \
+                             f'{self.indented_new_line()}{procedure_body}\n'
+
+            list_of_procedure_definition_results.append(definition_str)
+
+        return "\n".join(list_of_procedure_definition_results)
 
 
     def evaluate_constant_declaration(self, node):
@@ -154,6 +186,16 @@ class Translator:
     def evaluate_statement(self, node):
         child_node = self.get_value(node)
         return self.evaluate(child_node)
+
+
+    def evaluate_call(self, node):
+        child_node = self.get_value(node)
+        return f"{self.evaluate(child_node)}()"
+
+
+    def evaluate_exclamation(self, node):
+        child_node = self.get_value(node)
+        return f"print({self.evaluate(child_node)})"
 
 
     def evaluate_begin_block(self, node):
@@ -176,8 +218,8 @@ class Translator:
 
         #print( str(self.get_info(self.get_value(child_node["loop_condition"]))) )
 
-        loop_condition = self.evaluate( {"loop_condition": child_node["loop_condition"]} )
-        loop_statement = self.evaluate( {"loop_statement": child_node["loop_statement"]} )
+        loop_condition = self.evaluate( {"condition": child_node["condition"]} )
+        loop_statement = self.evaluate( {"statement": child_node["statement"]} )
 
         out = f"while {loop_condition}:"\
               f"{self.indented_new_line()}{loop_statement}"
@@ -185,7 +227,7 @@ class Translator:
         return out
 
 
-    def evaluate_loop_condition(self, node):
+    def evaluate_condition(self, node):
         child_node = self.get_value(node)
 
         operation = child_node["operation"]
@@ -193,14 +235,6 @@ class Translator:
         right = self.evaluate( child_node["right"] )
 
         return f"{left} {operation} {right}"
-
-
-    def evaluate_loop_statement(self, node):
-        child_node = self.get_value(node)
-
-        print(self.get_info(child_node))
-
-        return self.evaluate(child_node)
 
 
     def evaluate_binary_operation(self, node):

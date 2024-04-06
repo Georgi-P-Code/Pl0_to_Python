@@ -1,0 +1,128 @@
+{
+  "program": {
+    "block": {
+      "variable_declarations": [
+        {
+          "identifier": "x"
+        },
+        {
+          "identifier": "squ"
+        }
+      ],
+      "procedure_declarations": [
+        {
+          "procedure_name": {
+            "identifier": "square"
+          },
+          "procedure_body": {
+            "block": {
+              "block": {
+                "statement": {
+                  "begin_block": [
+                    {
+                      "assignment": {
+                        "left": {
+                          "identifier": "squ"
+                        },
+                        "right": {
+                          "binary_operation": {
+                            "operation": "*",
+                            "left": {
+                              "identifier": "x"
+                            },
+                            "right": {
+                              "identifier": "x"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "procedure_name": {
+            "identifier": "procedure_2"
+          },
+          "procedure_body": {
+            "block": {
+              "block": {
+                "statement": {
+                  "begin_block": [
+                    {
+                      "exclamation": {
+                        "number": 70
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "statement": {
+        "begin_block": [
+          {
+            "assignment": {
+              "left": {
+                "identifier": "x"
+              },
+              "right": {
+                "number": 1
+              }
+            }
+          },
+          {
+            "while_loop": {
+              "loop_condition": {
+                "operation": "<=",
+                "left": {
+                  "identifier": "x"
+                },
+                "right": {
+                  "number": 10
+                }
+              },
+              "loop_statement": {
+                "begin_block": [
+                  {
+                    "call": {
+                      "identifier": "square"
+                    }
+                  },
+                  {
+                    "exclamation": {
+                      "identifier": "squ"
+                    }
+                  },
+                  {
+                    "assignment": {
+                      "left": {
+                        "identifier": "x"
+                      },
+                      "right": {
+                        "binary_operation": {
+                          "operation": "+",
+                          "left": {
+                            "identifier": "x"
+                          },
+                          "right": {
+                            "number": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

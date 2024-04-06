@@ -75,6 +75,26 @@ class Pl0_parser_v1(Parser):
 
             ast["variable_declarations"] = variable_declarations
 
+        while self.check_token(Token_type.KEYWORD, "procedure"):
+            self.position += 1
+
+            if not ast.get("procedure_definitions"):
+                ast["procedure_definitions"] = []
+
+            identifier_name = self.match(Token_type.IDENTIFIER).value
+
+            self.match(Token_type.SEMICOLON)
+
+            block_ast = self.block()
+
+            self.match(Token_type.SEMICOLON)
+
+            ast["procedure_definitions"].append({
+                "procedure_name": {"identifier": identifier_name},
+                "procedure_body": block_ast
+            })
+
+
         ast["statement"] = self.statement()
 
         return {"block": ast}
@@ -122,9 +142,23 @@ class Pl0_parser_v1(Parser):
             statement = self.statement()
 
             return {"while_loop": {
-                "loop_condition": condition,
-                "loop_statement": statement
+                "condition": condition,
+                "statement": statement
             }}
+
+        if self.check_token(Token_type.KEYWORD, "call"):
+            self.position += 1
+
+            identifier_name =  self.match(Token_type.IDENTIFIER).value
+
+            return {"call": {"identifier": identifier_name}}
+
+        if self.check_token(Token_type.EXCLAMATION):
+            self.position += 1
+
+            expression_ast = self.expression()
+
+            return {"exclamation": expression_ast}
 
         return {"empty_statement": None}
 
@@ -149,6 +183,10 @@ class Pl0_parser_v1(Parser):
         match token_type:
             case Token_type.LESS_THAN:
                 result = "<"
+
+            case Token_type.LESS_OR_EQUAL_THAN:
+                result = "<="
+
             case _:
                 self.syntax_error(f"Unknown comparison operation.")
 

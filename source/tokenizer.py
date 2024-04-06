@@ -72,6 +72,7 @@ class Tokenizer:
 
                 if next_char == "=":
                     self.tokens.append(Token(Token_type.LESS_OR_EQUAL_THAN))
+                    self.position += 1
                 else:
                     self.tokens.append(Token(Token_type.LESS_THAN))
 
