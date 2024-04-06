@@ -8,77 +8,160 @@ class Pl0_parser_v1(Parser):
     def parse(self):
         ast = self.program()
         self.match(Token_type.EOF)
+
         return ast
 
 
     def program(self):
-        program_ast = self.block()
+        ast = self.block()
         self.match(Token_type.DOT)
 
-        return {"program": program_ast}
+        return {"program": ast}
 
 
     def block(self):
-        current_token = self.check()
-        current_position = self.position
+        ast = {}
 
-        block_ast = {}
+        if self.check_token(Token_type.KEYWORD, "const"):
+            self.position += 1
 
-        #Contsants declaration
-        try:
-            if current_token.type_ == Token_type.KEYWORD and current_token.value.lower() == "const":
+            constant_declarations = []
+
+            identifier_name = self.match(Token_type.IDENTIFIER).value
+            self.match(Token_type.EQUALS)
+            number = self.match(Token_type.NUMBER).value
+
+            constant_declarations.append({
+                "constant_declaration": {
+                    "left": {"identifier": identifier_name},
+                    "right": {"number": number}
+                }
+            })
+
+            while self.check_token(Token_type.COMMA):
                 self.position += 1
-
-                constant_declarations_list = []
-
                 identifier_name = self.match(Token_type.IDENTIFIER).value
                 self.match(Token_type.EQUALS)
-                number_value = self.match(Token_type.NUMBER).value
+                number = self.match(Token_type.NUMBER).value
 
-                constant_declarations_list.append({"left": {"identifier": identifier_name},
-                                                   "right": {"number": number_value}})
+                constant_declarations.append({
+                    "constant_declaration": {
+                        "left": {"identifier": identifier_name},
+                        "right": {"number": number}
+                    }
+                })
 
-                while self.check().type_ == Token_type.COMMA:
-                    self.position += 1
-                    identifier_name = self.match(Token_type.IDENTIFIER).value
-                    self.match(Token_type.EQUALS)
-                    number_value = self.match(Token_type.NUMBER).value
+            self.match(Token_type.SEMICOLON)
 
-                    constant_declarations_list.append({"left": {"identifier": identifier_name},
-                                                       "right": {"number": number_value}})
+            ast["constant_declarations"] = constant_declarations
 
-                self.match(Token_type.SEMICOLON)
+        if self.check_token(Token_type.KEYWORD, "var"):
+            self.position += 1
 
-                block_ast["constant_declarations"] = constant_declarations_list
-        except Invalid_syntax:
-            self.position = current_position
+            variable_declarations = []
 
-        statement_ast = self.statement()
+            identifier_name = self.match(Token_type.IDENTIFIER).value
 
-        block_ast["statement"] = statement_ast
+            variable_declarations.append({"identifier": identifier_name})
 
-        return {"block": block_ast}
+            while self.check_token(Token_type.COMMA):
+                self.position += 1
+
+                identifier_name = self.match(Token_type.IDENTIFIER).value
+
+                variable_declarations.append({"identifier": identifier_name})
+
+            self.match(Token_type.SEMICOLON)
+
+            ast["variable_declarations"] = variable_declarations
+
+        ast["statement"] = self.statement()
+
+        return {"block": ast}
 
 
     def statement(self):
-        current_token = self.check()
 
-        if current_token.type_ == Token_type.IDENTIFIER:
+        if self.check_token(Token_type.IDENTIFIER):
             identifier_name = self.match(Token_type.IDENTIFIER).value
             self.match(Token_type.ASSIGNMENT)
-            statement_ast = self.expression()
+            right_ast = self.expression()
 
-            return {"assignment": {"left": {"identifier": identifier_name}, "right": statement_ast}}
+            return {"assignment": {
+                "left": {"identifier": identifier_name},
+                "right": right_ast
+            }}
 
-        return None
+        if self.check_token(Token_type.KEYWORD, "begin"):
+            self.position += 1
+
+            statement_list = []
+
+            ast1 = self.statement()
+
+            statement_list.append(ast1)
+
+            while self.check_token(Token_type.SEMICOLON):
+                self.position += 1
+
+                ast2 = self.statement()
+
+                statement_list.append(ast2)
+
+            self.match(Token_type.KEYWORD, "end")
+
+            return {"begin_block": statement_list}
+
+        if self.check_token(Token_type.KEYWORD, "while"):
+            self.position += 1
+
+            condition = self.condition()
+
+            self.match(Token_type.KEYWORD, "do")
+
+            statement = self.statement()
+
+            return {"while_loop": {
+                "loop_condition": condition,
+                "loop_statement": statement
+            }}
+
+        return {"empty_statement": None}
+
+
+    def condition(self):
+        ast = self.expression()
+        operation = self.comparison_operation()
+        ast2 = self.expression()
+
+        return {
+            "operation": operation,
+            "left": ast,
+            "right": ast2
+        }
+
+
+    def comparison_operation(self):
+        token_type = self.current_token().type_
+
+        result = None
+
+        match token_type:
+            case Token_type.LESS_THAN:
+                result = "<"
+            case _:
+                self.syntax_error(f"Unknown comparison operation.")
+
+        self.position += 1
+        return result
 
 
     def expression(self) -> dict:
 
         expression_ast = self.term()
 
-        while self.check().symbol in  ["+", "-"]:
-            operation = self.check().symbol
+        while self.current_token().symbol in  ["+", "-"]:
+            operation = self.current_token().symbol
             self.position += 1
 
             expression_ast = {"binary_operation":{
@@ -94,8 +177,8 @@ class Pl0_parser_v1(Parser):
     def term(self):
         term_ast = self.factor()
 
-        while self.check().symbol in  ["*", "/"]:
-            operation = self.check().symbol
+        while self.current_token().symbol in  ["*", "/"]:
+            operation = self.current_token().symbol
             self.position += 1
 
             term_ast = {"binary_operation": {
@@ -109,7 +192,7 @@ class Pl0_parser_v1(Parser):
 
 
     def factor(self):
-        current_token = self.check()
+        current_token = self.current_token()
 
         if current_token.type_ == Token_type.IDENTIFIER:
             self.position += 1

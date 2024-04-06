@@ -115,7 +115,6 @@ class Tokenizer:
             else:
                 raise Exception(f"Unknown character {char} at line {self.line_number}")
 
-
             if self.tokens[-1].line_number == -1:
                 self.tokens[-1].line_number = self.line_number
 
@@ -164,4 +163,3 @@ class Tokenizer:
             return result.group()
         else:
             raise Exception(f"Error while parsing an identifier at line {self.line_number} for {result}")
-

@@ -1,0 +1,99 @@
+{
+  "program": {
+    "block": {
+      "variable_declarations": [
+        {
+          "identifier": "i"
+        },
+        {
+          "identifier": "s"
+        }
+      ],
+      "statement": {
+        "begin_block": [
+          {
+            "assignment": {
+              "left": {
+                "identifier": "i"
+              },
+              "right": {
+                "number": 0
+              }
+            }
+          },
+          {
+            "assignment": {
+              "left": {
+                "identifier": "s"
+              },
+              "right": {
+                "number": 0
+              }
+            }
+          },
+          {
+            "while_loop": {
+              "loop_condition": {
+                "operation": "<",
+                "left": {
+                  "identifier": "i"
+                },
+                "right": {
+                  "number": 5
+                }
+              },
+              "loop_statement": {
+                "begin_block": [
+                  {
+                    "assignment": {
+                      "left": {
+                        "identifier": "i"
+                      },
+                      "right": {
+                        "binary_operation": {
+                          "operation": "+",
+                          "left": {
+                            "identifier": "i"
+                          },
+                          "right": {
+                            "number": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "assignment": {
+                      "left": {
+                        "identifier": "s"
+                      },
+                      "right": {
+                        "binary_operation": {
+                          "operation": "+",
+                          "left": {
+                            "identifier": "s"
+                          },
+                          "right": {
+                            "binary_operation": {
+                              "operation": "*",
+                              "left": {
+                                "identifier": "i"
+                              },
+                              "right": {
+                                "identifier": "i"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
