@@ -1,0 +1,21 @@
+Var i, a, b, c, max;
+
+begin
+    max := 20;
+    i := 0;
+
+    a := 0;
+    b := 1;
+
+    !a;
+    !b;
+
+    while i < max do
+    begin
+        c := a + b;
+        !c;
+        a := b;
+        b := c;
+        i := i + 1
+    end
+end.

@@ -94,7 +94,6 @@ class Pl0_parser_v1(Parser):
                 "procedure_body": block_ast
             })
 
-
         ast["statement"] = self.statement()
 
         return {"block": ast}
@@ -132,6 +131,20 @@ class Pl0_parser_v1(Parser):
 
             return {"begin_block": statement_list}
 
+        if self.check_token(Token_type.KEYWORD, "if"):
+            self.position += 1
+
+            condition = self.condition()
+
+            self.match(Token_type.KEYWORD, "then")
+
+            statement = self.statement()
+
+            return {"if": {
+                "condition": condition,
+                "statement": statement
+            }}
+
         if self.check_token(Token_type.KEYWORD, "while"):
             self.position += 1
 
@@ -160,10 +173,25 @@ class Pl0_parser_v1(Parser):
 
             return {"exclamation": expression_ast}
 
+        if self.check_token(Token_type.QUESTION_MARK):
+            self.position += 1
+
+            identifier_name = self.match(Token_type.IDENTIFIER).value
+
+            return {"question_mark": {"identifier": identifier_name}}
+
         return {"empty_statement": None}
 
 
     def condition(self):
+
+        if self.check_token(Token_type.KEYWORD, "odd"):
+            self.position += 1
+
+            expression_ast = self.expression()
+
+            return {"odd": expression_ast}
+
         ast = self.expression()
         operation = self.comparison_operation()
         ast2 = self.expression()
@@ -181,11 +209,23 @@ class Pl0_parser_v1(Parser):
         result = None
 
         match token_type:
+            case Token_type.EQUALS:
+                result = "="
+
+            case Token_type.HASH:
+                result = "#"
+
             case Token_type.LESS_THAN:
                 result = "<"
 
             case Token_type.LESS_OR_EQUAL_THAN:
                 result = "<="
+
+            case Token_type.GREATER_THAN:
+                result = ">"
+
+            case Token_type.GREATER_OR_EQUAL_THAN:
+                result = ">="
 
             case _:
                 self.syntax_error(f"Unknown comparison operation.")

@@ -48,6 +48,11 @@ class Translator:
             case "begin_block":
                 result = self.evaluate_begin_block(node)
 
+            case "if":
+                self.indent()
+                result = self.evaluate_if_statement(node)
+                self.undent()
+
             case "while_loop":
                 self.indent()
                 result = self.evaluate_while_loop(node)
@@ -76,6 +81,9 @@ class Translator:
 
             case "number":
                 result = self.evaluate_number(node)
+
+            case "empty_statement":
+                result = self.evaluate_empty_statement(node)
 
             case _:
                 raise Exception(f"Don't know how to evaluate node of type \"{node_type}\"")
@@ -126,8 +134,8 @@ class Translator:
         declarations = []
 
         for variable in list_of_variables:
-            # variable_name = self.get_value(variable)
-            #
+            variable_name = self.get_value(variable)
+
             # if variable_name in self.variables:
             #     self.translation_error(f'Variable with name "{variable_name}" has already been declared.')
 
@@ -136,7 +144,7 @@ class Translator:
             thing = f'{variable_name} = None'
             declarations.append(thing)
 
-            #self.variables.append(variable_name)
+            self.variables.append(variable_name)
 
         out += self.indented_new_line().join(declarations) + self.indented_new_line()
 
@@ -156,11 +164,10 @@ class Translator:
 
             #list_of_used_variable_names = []
 
-            # if list_of_used_variable_names:
-            #     if_variables = f'{self.indented_new_line()}global {", ".join(list_of_used_variable_names)}'
-            # else:
-            #     if_variables = ""
-            if_variables = ""
+            if self.variables:
+                if_variables = f'{self.indented_new_line()}global {", ".join(self.variables)}'
+            else:
+                if_variables = ""
 
             definition_str = f'def {procedure_name}():' \
                              f'{if_variables}' \
@@ -213,6 +220,18 @@ class Translator:
         return out
 
 
+    def evaluate_if_statement(self, node):
+        child_node = self.get_value(node)
+
+        condition = self.evaluate( {"condition": child_node["condition"]} )
+        statement = self.evaluate( {"statement": child_node["statement"]} )
+
+        out = f'if {condition}:' \
+              f'{self.indented_new_line()}{statement}'
+
+        return out
+
+
     def evaluate_while_loop(self, node):
         child_node = self.get_value(node)
 
@@ -230,6 +249,10 @@ class Translator:
     def evaluate_condition(self, node):
         child_node = self.get_value(node)
 
+        if child_node.get("odd"):
+            expression = self.evaluate( child_node["odd"] )
+            return f'({expression})%2 != 0'
+
         operation = child_node["operation"]
         left = self.evaluate( child_node["left"] )
         right = self.evaluate( child_node["right"] )
@@ -244,7 +267,7 @@ class Translator:
         left = self.evaluate( child_node["left"] )
         right = self.evaluate( child_node["right"] )
 
-        print(self.get_info(child_node))
+        #print(self.get_info(child_node))
 
         return f"{left} {operation} {right}"
 
@@ -270,6 +293,8 @@ class Translator:
 
         return identifier_name
 
+    def evaluate_empty_statement(self, node):
+        return "pass"
 
     def evaluate_number(self, node):
         return str(self.get_value(node))

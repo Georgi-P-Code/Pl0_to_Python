@@ -48,6 +48,9 @@ class Tokenizer:
             elif char == " ":
                 if not self.ignore_space:
                     self.tokens.append(Token(Token_type.SPACE, line_number=self.line_number))
+                else:
+                    self.position += 1
+                    continue
 
             elif char == "(":
                 self.tokens.append(Token(Token_type.LEFT_PARENTHESIS))
@@ -81,6 +84,7 @@ class Tokenizer:
 
                 if next_char == "=":
                     self.tokens.append(Token(Token_type.GREATER_OR_EQUAL_THAN))
+                    self.position += 1
                 else:
                     self.tokens.append(Token(Token_type.GREATER_THAN))
 
@@ -100,10 +104,18 @@ class Tokenizer:
             elif char == "\t":
                 if not self.ignore_space:
                     self.tokens.append(Token(Token_type.TAB))
+                else:
+                    self.position += 1
+                    continue
 
             elif char == "\n":
                 if not self.ignore_new_line:
                     self.tokens.append(Token(Token_type.NEW_LINE, line_number=self.line_number))
+                else:
+                    self.position += 1
+                    self.line_number += 1
+                    continue
+
                 self.line_number += 1
 
             elif char.isalpha() or char == "_":

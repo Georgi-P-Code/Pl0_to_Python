@@ -6,6 +6,7 @@ keywords = [
     "begin",
     "end",
     "if",
+    "then",
     "while",
     "do",
     "odd"
