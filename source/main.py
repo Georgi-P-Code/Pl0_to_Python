@@ -44,6 +44,9 @@ def run_file(file_name_with_extension: str, debugging=False):
     print("---------------------------")
 
     if debugging:
+        if not path.exists("../debugging/"):
+            mkdir("../debugging/")
+
         path_to_file_dir = f"../debugging/{file_name}"
 
         if path.exists(path_to_file_dir):
