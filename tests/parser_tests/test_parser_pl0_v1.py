@@ -1,10 +1,9 @@
-from tokenizer import Tokenizer
-from parsers import Pl0_parser_v1
+from source.tokenizer import Tokenizer
+from source.parsers import Pl0_parser_v1
 
 def test_basic_program():
-    input_ = """\
-_exe_ := 1/-1 .
-"""
+    input_ = """_exe_ := 1/-1 ."""
+
     target = "{'program': \
 {'block': \
 {'statement': \
@@ -12,8 +11,7 @@ _exe_ := 1/-1 .
 {'binary_operation': {'operation': '/', 'left': {'number': 1}, 'right': \
 {'unary_operation': {'operation': '-', 'left': {'number': 1}}}}}}}}}}"
 
-
     tokens = Tokenizer(input_, ignore_new_line=True).tokenize()
     ast = Pl0_parser_v1(tokens, input_).parse()
-    #print("\n", ast)
+
     assert  target == str(ast)

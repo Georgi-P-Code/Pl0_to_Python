@@ -15,12 +15,12 @@ class Tokenizer:
         self.tokenize()
 
 
-    def tokenize(self):
+    def tokenize(self) -> list[Token]:
         if self.text == "":
             return [Token(Token_type.EOF, line_number= 1, position_number= 0)]
 
-        self.position = 0
         self.tokens = []
+        self.position = 0
         self.line_number = 1
 
         while self.position < len(self.text):
@@ -138,18 +138,15 @@ class Tokenizer:
         return self.tokens
 
 
-    def get_char(self):
+    def get_char(self, offset: int=0):
         try:
-            return self.text[self.position]
+            return self.text[self.position+offset]
         except IndexError:
             return None
 
 
     def get_next_char(self):
-        try:
-            return self.text[self.position+1]
-        except IndexError:
-            return None
+        return self.get_char(offset=1)
 
 
     def parse_number(self):

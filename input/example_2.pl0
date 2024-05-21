@@ -1,9 +1,7 @@
 VAR x, squ;
 
 PROCEDURE square;
-var g;
 BEGIN
-   !g;
    squ:= x * x
 END;
 

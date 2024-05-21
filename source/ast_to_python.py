@@ -1,5 +1,5 @@
 
-class Translation_error(Exception): pass
+from exceptions import Translation_error
 
 class Translator:
 
@@ -254,6 +254,13 @@ class Translator:
             return f'({expression})%2 != 0'
 
         operation = child_node["operation"]
+
+        if operation == "=":
+            operation = "=="
+
+        elif operation == "#":
+            operation = "!="
+
         left = self.evaluate( child_node["left"] )
         right = self.evaluate( child_node["right"] )
 

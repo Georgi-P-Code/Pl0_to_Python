@@ -213,7 +213,7 @@ class Pl0_parser_v1(Parser):
                 result = "="
 
             case Token_type.HASH:
-                result = "#"
+                result = "#" # <-- !=
 
             case Token_type.LESS_THAN:
                 result = "<"

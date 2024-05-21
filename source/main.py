@@ -8,32 +8,9 @@ from ast_to_python import Translator
 from utilities.ast_visualizer import Ast_visualizer
 from utilities.tokens_visualizer import Tokens_visualizer
 
-from exceptions import Invalid_syntax
-
 
 def main():
-
-    name = "all_grammar_use"
-
-    run_file(f"{name}.pl0", debugging=True)
-
-    # while True:
-    #     input_text = input(">")
-    #
-    #     if input_text == "exit":
-    #         break
-    #
-    #     if input_text == "clear":
-    #         print("\n" * 20)
-    #         continue
-    #
-    #     try:
-    #         tokensz, ast, output_text = execute(input_text)
-    #     except Invalid_syntax as syntax_error:
-    #         print("Syntax error:", syntax_error)
-    #         continue
-    #
-    #     print_execution_results(input_text, tokensz, ast, output_text)
+    run_file(f"nesting.pl0", debugging=True)
 
 
 def run_file(file_name_with_extension: str, debugging=False):
@@ -46,22 +23,25 @@ def run_file(file_name_with_extension: str, debugging=False):
 
     input_text = read_file(path_to_file)
 
-    print("-----------------------")
+    print("------ Input Program ------")
     print(input_text)
+    print("---------------------------")
 
     tokens = Tokenizer(input_text, ignore_new_line=True).tokenize()
 
     tokens_visualization = Tokens_visualizer(tokens).visualize()
 
-    print("-----------------------")
-    print("Tokens:", tokens_visualization)
+    print("--------- Tokens ----------")
+    print(f"{tokens_visualization}")
+    print("---------------------------")
 
     ast = Pl0_parser_v1(tokens, input_text).parse()
 
     str_repr = Ast_visualizer(ast).visualize()
 
-    print("-----------------------")
-    print(f"Ast:\n{str_repr}")
+    print("---------- AST ------------")
+    print(f"{str_repr}")
+    print("---------------------------")
 
     if debugging:
         path_to_file_dir = f"../debugging/{file_name}"
@@ -76,57 +56,26 @@ def run_file(file_name_with_extension: str, debugging=False):
 
     output_text = Translator(ast).translate()
 
-    print("-----------------------")
+    print("- Generated Python Program -")
     print(output_text)
-    print("-----------------------")
+    print("----------------------------")
 
     with open(f"../output/{file_name}.py", "w") as f:
         f.write(output_text)
 
+    print("------ Python Output -------")
 
-def execute(input_text: str, file_name: str="untitled", ignore_new_line=True, save_ast=False):
-    tokens = Tokenizer(input_text, ignore_new_line=ignore_new_line).tokenize()
+    try:
+        exec(output_text)
+    except Exception as err:
+        print(f'Error: {err}')
 
-    #try:
-    ast = Pl0_parser_v1(tokens, input_text).parse()
-    # except Invalid_syntax as err:
-    #     return tokensz, err, ""
+    print("----------------------------")
 
-    if save_ast:
-        path_to_file_dir = f"../debugging/{file_name}"
-
-        if path.exists(path_to_file_dir):
-            assert path.isdir(path_to_file_dir)
-        else:
-            mkdir(path_to_file_dir)
-
-
-        with open(f"{path_to_file_dir}/{file_name}_ast.json", "w") as f:
-            f.write(json.dumps(ast, indent=2))
-
-    output_text = Translator(ast).translate()
-
-    return tokens, ast, output_text
-
-
-def print_execution_results(input_: str, tokens, ast, output_text: str):
-    print("-----------------------")
-    print(input_)
-    print("-----------------------")
-    print("Tokens:", tokens)
-    print("-----------------------")
-    print("Ast:", ast)
-    print("-----------------------")
-    print(output_text)
-    print("-----------------------")
-    # comp = compile(output_text, "<string>","eval")
-    # eval(comp)
 
 def read_file(program_path: str):
-    #validate path TODO
     with open(program_path, "r") as f:
         return f.read()
-
 
 
 if __name__ == "__main__":

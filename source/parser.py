@@ -55,7 +55,7 @@ class Parser:
 
         if expected_token_value is not None:
             if expected_token_value != (current_token.value if case_sensitive else current_token.value.lower()):
-                self.syntax_error(f'Expected token value {expected_token_value}, but got {current_token.value}')
+                self.syntax_error(f'Expected token value "{expected_token_value}", but got "{current_token.value}"')
 
         self.position += 1
         return current_token
@@ -68,5 +68,5 @@ class Parser:
         raise Invalid_syntax(
             f'\n\t{error_snippet}\n'
             f"Line {current_token.line_number}: {message}\n"
-            f"In position {self.position} for {current_token}"
+            #f"In position {self.position} for <{current_token}>"
         )

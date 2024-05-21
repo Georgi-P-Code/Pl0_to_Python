@@ -6,9 +6,3 @@ def test_assignment():
 
     tokens = Tokenizer(input_).tokenize()
     assert str(tokens) == "[KEYWORD = const, IDENTIFIER = asd, ASSIGNMENT, NUMBER = 11, SEMICOLON, EOF]"
-
-
-
-# TEST CASE FAIL !!!    asd = """\
-#
-# """
