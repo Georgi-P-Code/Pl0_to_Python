@@ -10,7 +10,7 @@ from utilities.tokens_visualizer import Tokens_visualizer
 
 
 def main():
-    run_file(f"nesting.pl0", debugging=True)
+    run_file(f"fibonacci.pl0", debugging=True)
 
 
 def run_file(file_name_with_extension: str, debugging=False):
