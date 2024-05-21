@@ -63,6 +63,9 @@ def run_file(file_name_with_extension: str, debugging=False):
     print(output_text)
     print("----------------------------")
 
+    if not path.exists("../output/"):
+        mkdir("../output/")
+
     with open(f"../output/{file_name}.py", "w") as f:
         f.write(output_text)
 
