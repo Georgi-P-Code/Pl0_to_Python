@@ -1,0 +1,56 @@
+var modulo_arg_1, modulo_arg_2, modulo_result,
+is_prime_arg_1, is_prime_result,
+print_primes_min, print_primes_max;
+
+procedure modulo;
+    var remainder;
+    begin
+        remainder := modulo_arg_1;
+        while remainder >= 0 do
+            remainder := remainder - modulo_arg_2;
+
+        modulo_result := remainder + modulo_arg_2
+    end;
+
+procedure is_prime;
+    var i;
+    begin
+        is_prime_result := 1;
+        i := 2;
+        while i < is_prime_arg_1 do
+        begin
+            modulo_arg_1 := is_prime_arg_1;
+            modulo_arg_2 := i;
+            call modulo;
+            if modulo_result = 0 then
+            begin
+                is_prime_result := 0;
+                i := is_prime_arg_1
+            end;
+            i := i + 1
+        end
+    end;
+
+procedure print_primes;
+    var current_number;
+
+    begin
+        current_number := print_primes_min;
+
+        while current_number <= print_primes_max do
+        begin
+            is_prime_arg_1 := current_number;
+            call is_prime;
+            if is_prime_result = 1 then
+            begin
+                !current_number
+            end;
+            current_number := current_number +1
+        end
+    end;
+
+begin
+    print_primes_min := 1;
+    print_primes_max := 100;
+    call print_primes
+end.

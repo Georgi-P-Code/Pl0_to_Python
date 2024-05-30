@@ -1,0 +1,22 @@
+var a;
+
+procedure f1;
+    var a;
+
+    procedure f2;
+    begin
+        a := 2;
+        !a
+    end;
+
+    begin
+        a := 1;
+        call f2;
+        !a
+    end;
+
+begin
+    a := 0;
+    call f1;
+    !a
+end.

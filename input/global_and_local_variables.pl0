@@ -1,0 +1,20 @@
+var a;
+
+procedure set_local_a_to_100;
+    var a;
+    begin
+        a := 100
+    end;
+
+procedure set_global_a_to_50;
+    begin
+        a := 50
+    end;
+
+begin
+    a := 10;
+    call set_local_a_to_100;
+    !a;
+    call set_global_a_to_50;
+    !a
+end.

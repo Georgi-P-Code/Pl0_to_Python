@@ -1,0 +1,28 @@
+var arg_1, counter;
+
+procedure reset_counter;
+    begin
+        counter := 1
+    end;
+
+procedure increment_by;
+    begin
+        counter := counter + arg_1
+    end;
+
+procedure decrement_by;
+    begin
+        counter := counter - arg_1
+    end;
+
+procedure print_counter;
+    begin
+        !counter
+    end;
+
+begin
+    call reset_counter;
+    arg_1 := 5;
+    call increment_by;
+    call print_counter
+end.

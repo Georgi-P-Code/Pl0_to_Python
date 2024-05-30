@@ -1,5 +1,6 @@
 import json
 from os import path, mkdir
+import subprocess
 
 from tokenizer import Tokenizer
 from parsers import Pl0_parser_v1
@@ -10,7 +11,7 @@ from utilities.tokens_visualizer import Tokens_visualizer
 
 
 def main():
-    run_file(f"fibonacci.pl0", debugging=True)
+    run_file(f"del_2.pl0", debugging=True)
 
 
 def run_file(file_name_with_extension: str, debugging=False):
@@ -35,12 +36,13 @@ def run_file(file_name_with_extension: str, debugging=False):
     print(f"{tokens_visualization}")
     print("---------------------------")
 
-    ast = Pl0_parser_v1(tokens, input_text).parse()
-
-    str_repr = Ast_visualizer(ast).visualize()
+    parser = Pl0_parser_v1(tokens, input_text)
+    ast = parser.parse()
+    scope_information = parser.root_scope
+    ast_visualization = Ast_visualizer(ast).visualize()
 
     print("---------- AST ------------")
-    print(f"{str_repr}")
+    print(f"{ast_visualization}")
     print("---------------------------")
 
     if debugging:
@@ -57,7 +59,7 @@ def run_file(file_name_with_extension: str, debugging=False):
         with open(f"{path_to_file_dir}/{file_name}_ast.json", "w") as f:
             f.write(json.dumps(ast, indent=2))
 
-    output_text = Translator(ast).translate()
+    output_text = Translator(ast, scope_information).translate()
 
     print("- Generated Python Program -")
     print(output_text)
@@ -71,10 +73,7 @@ def run_file(file_name_with_extension: str, debugging=False):
 
     print("------ Python Output -------")
 
-    try:
-        exec(output_text)
-    except Exception as err:
-        print(f'Error: {err}')
+    subprocess.call(f"python ../output/{file_name}.py", shell=True)
 
     print("----------------------------")
 

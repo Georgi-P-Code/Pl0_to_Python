@@ -1,0 +1,24 @@
+[KEYWORD = const, IDENTIFIER = max, EQUALS, NUMBER = 100, SEMICOLON, KEYWORD = begin, EXCLAMATION, IDENTIFIER = max, KEYWORD = end, DOT, EOF]
+---
+1: <KEYWORD = const> <IDENTIFIER = max> <EQUALS> <NUMBER = 100> <SEMICOLON> 
+2: <KEYWORD = begin> 
+3: <EXCLAMATION> <IDENTIFIER = max> 
+4: <KEYWORD = end> <DOT> <EOF> 
+---
+{'program': {'block': {'constant_declarations': [{'constant_declaration': {'left': {'identifier': 'max'}, 'right': {'number': 100}}}], 'statement': {'begin_block': [{'exclamation': {'identifier': 'max'}}]}}}}
+---
+program
+└──block
+   └──constant_declarations
+      └──constant_declaration
+         └──max
+         └──100
+   └──statement
+      └──begin_block
+         └──exclamation
+            └──max
+---
+max = 100
+print(max)
+---
+100

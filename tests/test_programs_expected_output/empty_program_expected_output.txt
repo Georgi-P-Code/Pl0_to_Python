@@ -1,0 +1,14 @@
+[DOT, EOF]
+---
+1: <DOT> <EOF> 
+---
+{'program': {'block': {'statement': {'empty_statement': None}}}}
+---
+program
+└──block
+   └──statement
+      └──empty_statement
+         └──None
+---
+pass
+---

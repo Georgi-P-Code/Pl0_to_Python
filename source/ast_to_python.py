@@ -1,21 +1,46 @@
 
 from exceptions import Translation_error
 
+# constant_class = """\
+# class Constant:
+#     def __init__(self, **kvargs):
+#         self.constants = kvargs
+#
+#     def __getitem__(self, item):
+#         return self.constants[item]
+#
+#     def __setitem__(self, name, value):
+#         raise Exception(f'Attempt to change "{name}" a constant value.')\n\n
+# """
+
+
 class Translator:
 
-    def __init__(self, ast: dict):
+    def __init__(self, ast: dict, scope_information):
         self.ast = ast
+        self.scope = scope_information
+        self.current_scope = None
+        self.previous_scope = None
+        self.visited_scopes = {}
+        self.identifiers_used_throughout_procedure = {}
 
 
-    def translate(self):
+    def translate(self) -> str:
         self.constants = []
         self.variables = []
         self.indentation_level = 0
 
-        return self.evaluate(self.ast)
+        #self.prepend_constants_class = False
+
+        output = self.evaluate(self.ast)
+
+        # if self.prepend_constants_class:
+        #     output = constant_class + output
+
+        return output
 
 
-    def evaluate(self, node):
+    def evaluate(self, node) -> str:
         #print("Evaluateing:", node)
         number_of_children = None#TODO
         node_type = str(list(node.keys())[0])
@@ -99,6 +124,8 @@ class Translator:
     def evaluate_block(self, node):
         child_node = self.get_value(node)
 
+        self.enter_scope()
+
         block_components = []
         #list_of_used_variable_names = []
 
@@ -110,21 +137,24 @@ class Translator:
 
         out = self.indented_new_line().join(block_components)
 
+        self.leave_scope()
+
         return out#, list_of_used_variable_names
 
 
     def evaluate_constant_declarations(self, node):
+        #self.prepend_constants_class = True
+
         list_of_declarations = self.get_value(node)
-        out = "constants = {"
 
         declarations = []
 
         for constant_declaration in list_of_declarations:
             declarations.append(self.evaluate(constant_declaration))
 
-        out += ", ".join(declarations)
+        constants_list = "; ".join(declarations)
 
-        return out + "}"
+        return f"{constants_list}"
 
 
     def evaluate_variable_declarations(self, node):
@@ -141,8 +171,7 @@ class Translator:
 
             variable_name = self.evaluate(variable)
 
-            thing = f'{variable_name} = None'
-            declarations.append(thing)
+            declarations.append(f'{variable_name} = None')
 
             self.variables.append(variable_name)
 
@@ -155,22 +184,28 @@ class Translator:
         list_of_procedure_definitions = self.get_value(node)
 
         list_of_procedure_definition_results = []
-        #out = ""
 
         for procedure_definition in list_of_procedure_definitions:
-            asd = procedure_definition["procedure_name"]
-            procedure_name = self.evaluate(asd)
-            procedure_body = self.evaluate(procedure_definition["procedure_body"]) #, list_of_used_variable_names
+            procedure_name = self.evaluate(procedure_definition["procedure_name"])
+            self.identifiers_used_throughout_procedure = {}
+            procedure_body = self.evaluate(procedure_definition["procedure_body"])
 
-            #list_of_used_variable_names = []
+            #print(f"USED {self.identifiers_used_throughout_procedure}")
 
-            if self.variables:
-                if_variables = f'{self.indented_new_line()}global {", ".join(self.variables)}'
+            identifiers_from_outer_scope = []
+            for identifier_name in self.identifiers_used_throughout_procedure.keys():
+                #print(f'IS "{identifier_name}" IN CURRENT SCOPE?')
+                #print(self.current_scope.identifiers)
+                if not self.was_in_scope(identifier_name):
+                    identifiers_from_outer_scope.append(identifier_name)
+
+            if identifiers_from_outer_scope:
+                if_global_variables = f'{self.indented_new_line()}global {", ".join(identifiers_from_outer_scope)}'
             else:
-                if_variables = ""
+                if_global_variables = ""
 
-            definition_str = f'def {procedure_name}():' \
-                             f'{if_variables}' \
+            definition_str = f'def {procedure_name}():'\
+                             f'{if_global_variables}' \
                              f'{self.indented_new_line()}{procedure_body}\n'
 
             list_of_procedure_definition_results.append(definition_str)
@@ -187,7 +222,7 @@ class Translator:
 
         self.constants.append(identifier_name)
 
-        return f'"{identifier_name}" = {self.evaluate(right_node)}'
+        return f'{identifier_name} = {self.evaluate(right_node)}'
 
 
     def evaluate_statement(self, node):
@@ -292,8 +327,18 @@ class Translator:
     def evaluate_identifier(self, node):
         identifier_name = self.get_value(node)
 
+        result = self.current_scope.is_visible(identifier_name)
+        identifier_type = result[identifier_name]
+
+        if identifier_type != "procedure":
+        #     if not self.identifiers_used_throughout_procedure.get(identifier_name):
+        #         print(f"ADDING {identifier_name} {identifier_type}")
+            self.identifiers_used_throughout_procedure[identifier_name] = True
+        # else:
+        #     print(f"SKIPPING {identifier_name} {identifier_type}")
+
         if identifier_name in self.constants:
-            identifier_name = f'constants["{identifier_name}"]'
+            identifier_name = f'{identifier_name}'
 
         # elif identifier_name in self.variables:
         #     identifier_name = f'variable["{identifier_name}"]'
@@ -345,6 +390,54 @@ class Translator:
             out["value"] = node
 
         return out
+
+
+    def enter_scope(self):
+        if self.current_scope is None:
+            self.current_scope = self.scope
+            self.visited_scopes[f"Level {self.current_scope.level}"] = 1
+        else:
+            try:
+                inner_scope_position = self.visited_scopes[f"Level {self.current_scope.level + 1}"]
+            except KeyError:
+                self.visited_scopes[f"Level {self.current_scope.level + 1}"] = 1
+                inner_scope_position = 1
+
+            self.previous_scope = self.current_scope
+            self.current_scope = self.current_scope.inner[inner_scope_position-1]
+
+
+            self.visited_scopes[f"Level {self.current_scope.level}"] += 1
+
+
+
+        #print(f"ast_to_py: Enter scope {self.current_scope.name} (Level {self.current_scope.level})")
+
+
+    def leave_scope(self):
+        #print(f"ast_to_py: Leave scope {self.current_scope.name} (Level {self.current_scope.level})")
+        before_change = self.previous_scope
+        if before_change is None:
+            before_change_name = "<empty>"
+        else:
+            before_change_name = before_change.name
+        self.previous_scope = self.current_scope
+        #print(f'previous scope: {before_change_name} -> {self.previous_scope.name}')
+
+        before_change_cs = self.current_scope
+        if before_change_cs is None:
+            before_change_cs_name = "<empty>"
+        else:
+            before_change_cs_name = before_change_cs.name
+        #print(f"ast_to_py: Leaving scope {self.current_scope.name} (Level {self.current_scope.level})")
+        self.current_scope = self.current_scope.parent
+        cp_name = self.current_scope.name if self.current_scope is not None else "<empty>"
+        #print(f'current scope: {before_change_cs_name} -> {cp_name}')
+
+
+    def was_in_scope(self, identifier_name: str):
+        return self.previous_scope.identifiers.get(identifier_name)
+
 
     def translation_error(self, message: str):
         raise Translation_error(message)

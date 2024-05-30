@@ -1,0 +1,6 @@
+const max = 100, min = 1;
+var a;
+
+begin
+    !max
+end.

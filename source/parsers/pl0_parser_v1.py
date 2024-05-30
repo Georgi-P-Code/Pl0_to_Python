@@ -22,12 +22,15 @@ class Pl0_parser_v1(Parser):
     def block(self):
         ast = {}
 
+        self.new_scope()
+
         if self.check_token(Token_type.KEYWORD, "const"):
             self.position += 1
 
             constant_declarations = []
 
             identifier_name = self.match(Token_type.IDENTIFIER).value
+            self.add_identifier_to_current_scope(identifier_name, "constant")
             self.match(Token_type.EQUALS)
             number = self.match(Token_type.NUMBER).value
 
@@ -41,6 +44,7 @@ class Pl0_parser_v1(Parser):
             while self.check_token(Token_type.COMMA):
                 self.position += 1
                 identifier_name = self.match(Token_type.IDENTIFIER).value
+                self.add_identifier_to_current_scope(identifier_name, "constant")
                 self.match(Token_type.EQUALS)
                 number = self.match(Token_type.NUMBER).value
 
@@ -61,6 +65,7 @@ class Pl0_parser_v1(Parser):
             variable_declarations = []
 
             identifier_name = self.match(Token_type.IDENTIFIER).value
+            self.add_identifier_to_current_scope(identifier_name, "variable")
 
             variable_declarations.append({"identifier": identifier_name})
 
@@ -68,7 +73,7 @@ class Pl0_parser_v1(Parser):
                 self.position += 1
 
                 identifier_name = self.match(Token_type.IDENTIFIER).value
-
+                self.add_identifier_to_current_scope(identifier_name, "variable")
                 variable_declarations.append({"identifier": identifier_name})
 
             self.match(Token_type.SEMICOLON)
@@ -82,7 +87,7 @@ class Pl0_parser_v1(Parser):
                 ast["procedure_definitions"] = []
 
             identifier_name = self.match(Token_type.IDENTIFIER).value
-
+            self.add_identifier_to_current_scope(identifier_name, "procedure")
             self.match(Token_type.SEMICOLON)
 
             block_ast = self.block()
@@ -96,13 +101,17 @@ class Pl0_parser_v1(Parser):
 
         ast["statement"] = self.statement()
 
+        self.exit_scope()
+
         return {"block": ast}
 
 
     def statement(self):
 
         if self.check_token(Token_type.IDENTIFIER):
+            self.check_if_current_identifier_name_is_declared()
             identifier_name = self.match(Token_type.IDENTIFIER).value
+            self.check_if_trying_to_change_a_constant(identifier_name)
             self.match(Token_type.ASSIGNMENT)
             right_ast = self.expression()
 
@@ -162,6 +171,7 @@ class Pl0_parser_v1(Parser):
         if self.check_token(Token_type.KEYWORD, "call"):
             self.position += 1
 
+            self.check_if_current_identifier_name_is_declared()
             identifier_name =  self.match(Token_type.IDENTIFIER).value
 
             return {"call": {"identifier": identifier_name}}
@@ -176,6 +186,7 @@ class Pl0_parser_v1(Parser):
         if self.check_token(Token_type.QUESTION_MARK):
             self.position += 1
 
+            self.check_if_current_identifier_name_is_declared()
             identifier_name = self.match(Token_type.IDENTIFIER).value
 
             return {"question_mark": {"identifier": identifier_name}}
@@ -273,6 +284,7 @@ class Pl0_parser_v1(Parser):
         current_token = self.current_token()
 
         if current_token.type_ == Token_type.IDENTIFIER:
+            self.check_if_current_identifier_name_is_declared()
             self.position += 1
             return {"identifier": current_token.value}
 

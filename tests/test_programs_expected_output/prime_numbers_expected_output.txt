@@ -1,0 +1,256 @@
+[KEYWORD = var, IDENTIFIER = modulo_arg_1, COMMA, IDENTIFIER = modulo_arg_2, COMMA, IDENTIFIER = modulo_result, COMMA, IDENTIFIER = is_prime_arg_1, COMMA, IDENTIFIER = is_prime_result, COMMA, IDENTIFIER = print_primes_min, COMMA, IDENTIFIER = print_primes_max, SEMICOLON, KEYWORD = procedure, IDENTIFIER = modulo, SEMICOLON, KEYWORD = var, IDENTIFIER = remainder, SEMICOLON, KEYWORD = begin, IDENTIFIER = remainder, ASSIGNMENT, IDENTIFIER = modulo_arg_1, SEMICOLON, KEYWORD = while, IDENTIFIER = remainder, GREATER_OR_EQUAL_THAN, NUMBER = 0, KEYWORD = do, IDENTIFIER = remainder, ASSIGNMENT, IDENTIFIER = remainder, MINUS, IDENTIFIER = modulo_arg_2, SEMICOLON, IDENTIFIER = modulo_result, ASSIGNMENT, IDENTIFIER = remainder, PLUS, IDENTIFIER = modulo_arg_2, KEYWORD = end, SEMICOLON, KEYWORD = procedure, IDENTIFIER = is_prime, SEMICOLON, KEYWORD = var, IDENTIFIER = i, SEMICOLON, KEYWORD = begin, IDENTIFIER = is_prime_result, ASSIGNMENT, NUMBER = 1, SEMICOLON, IDENTIFIER = i, ASSIGNMENT, NUMBER = 2, SEMICOLON, KEYWORD = while, IDENTIFIER = i, LESS_THAN, IDENTIFIER = is_prime_arg_1, KEYWORD = do, KEYWORD = begin, IDENTIFIER = modulo_arg_1, ASSIGNMENT, IDENTIFIER = is_prime_arg_1, SEMICOLON, IDENTIFIER = modulo_arg_2, ASSIGNMENT, IDENTIFIER = i, SEMICOLON, KEYWORD = call, IDENTIFIER = modulo, SEMICOLON, KEYWORD = if, IDENTIFIER = modulo_result, EQUALS, NUMBER = 0, KEYWORD = then, KEYWORD = begin, IDENTIFIER = is_prime_result, ASSIGNMENT, NUMBER = 0, SEMICOLON, IDENTIFIER = i, ASSIGNMENT, IDENTIFIER = is_prime_arg_1, KEYWORD = end, SEMICOLON, IDENTIFIER = i, ASSIGNMENT, IDENTIFIER = i, PLUS, NUMBER = 1, KEYWORD = end, KEYWORD = end, SEMICOLON, KEYWORD = procedure, IDENTIFIER = print_primes, SEMICOLON, KEYWORD = var, IDENTIFIER = current_number, SEMICOLON, KEYWORD = begin, IDENTIFIER = current_number, ASSIGNMENT, IDENTIFIER = print_primes_min, SEMICOLON, KEYWORD = while, IDENTIFIER = current_number, LESS_OR_EQUAL_THAN, IDENTIFIER = print_primes_max, KEYWORD = do, KEYWORD = begin, IDENTIFIER = is_prime_arg_1, ASSIGNMENT, IDENTIFIER = current_number, SEMICOLON, KEYWORD = call, IDENTIFIER = is_prime, SEMICOLON, KEYWORD = if, IDENTIFIER = is_prime_result, EQUALS, NUMBER = 1, KEYWORD = then, KEYWORD = begin, EXCLAMATION, IDENTIFIER = current_number, KEYWORD = end, SEMICOLON, IDENTIFIER = current_number, ASSIGNMENT, IDENTIFIER = current_number, PLUS, NUMBER = 1, KEYWORD = end, KEYWORD = end, SEMICOLON, KEYWORD = begin, IDENTIFIER = print_primes_min, ASSIGNMENT, NUMBER = 1, SEMICOLON, IDENTIFIER = print_primes_max, ASSIGNMENT, NUMBER = 100, SEMICOLON, KEYWORD = call, IDENTIFIER = print_primes, KEYWORD = end, DOT, EOF]
+---
+1: <KEYWORD = var> <IDENTIFIER = modulo_arg_1> <COMMA> <IDENTIFIER = modulo_arg_2> <COMMA> <IDENTIFIER = modulo_result> <COMMA> 
+2: <IDENTIFIER = is_prime_arg_1> <COMMA> <IDENTIFIER = is_prime_result> <COMMA> 
+3: <IDENTIFIER = print_primes_min> <COMMA> <IDENTIFIER = print_primes_max> <SEMICOLON> 
+5: <KEYWORD = procedure> <IDENTIFIER = modulo> <SEMICOLON> 
+6: <KEYWORD = var> <IDENTIFIER = remainder> <SEMICOLON> 
+7: <KEYWORD = begin> 
+8: <IDENTIFIER = remainder> <ASSIGNMENT> <IDENTIFIER = modulo_arg_1> <SEMICOLON> 
+9: <KEYWORD = while> <IDENTIFIER = remainder> <GREATER_OR_EQUAL_THAN> <NUMBER = 0> <KEYWORD = do> 
+10: <IDENTIFIER = remainder> <ASSIGNMENT> <IDENTIFIER = remainder> <MINUS> <IDENTIFIER = modulo_arg_2> <SEMICOLON> 
+12: <IDENTIFIER = modulo_result> <ASSIGNMENT> <IDENTIFIER = remainder> <PLUS> <IDENTIFIER = modulo_arg_2> 
+13: <KEYWORD = end> <SEMICOLON> 
+15: <KEYWORD = procedure> <IDENTIFIER = is_prime> <SEMICOLON> 
+16: <KEYWORD = var> <IDENTIFIER = i> <SEMICOLON> 
+17: <KEYWORD = begin> 
+18: <IDENTIFIER = is_prime_result> <ASSIGNMENT> <NUMBER = 1> <SEMICOLON> 
+19: <IDENTIFIER = i> <ASSIGNMENT> <NUMBER = 2> <SEMICOLON> 
+20: <KEYWORD = while> <IDENTIFIER = i> <LESS_THAN> <IDENTIFIER = is_prime_arg_1> <KEYWORD = do> 
+21: <KEYWORD = begin> 
+22: <IDENTIFIER = modulo_arg_1> <ASSIGNMENT> <IDENTIFIER = is_prime_arg_1> <SEMICOLON> 
+23: <IDENTIFIER = modulo_arg_2> <ASSIGNMENT> <IDENTIFIER = i> <SEMICOLON> 
+24: <KEYWORD = call> <IDENTIFIER = modulo> <SEMICOLON> 
+25: <KEYWORD = if> <IDENTIFIER = modulo_result> <EQUALS> <NUMBER = 0> <KEYWORD = then> 
+26: <KEYWORD = begin> 
+27: <IDENTIFIER = is_prime_result> <ASSIGNMENT> <NUMBER = 0> <SEMICOLON> 
+28: <IDENTIFIER = i> <ASSIGNMENT> <IDENTIFIER = is_prime_arg_1> 
+29: <KEYWORD = end> <SEMICOLON> 
+30: <IDENTIFIER = i> <ASSIGNMENT> <IDENTIFIER = i> <PLUS> <NUMBER = 1> 
+31: <KEYWORD = end> 
+32: <KEYWORD = end> <SEMICOLON> 
+34: <KEYWORD = procedure> <IDENTIFIER = print_primes> <SEMICOLON> 
+35: <KEYWORD = var> <IDENTIFIER = current_number> <SEMICOLON> 
+37: <KEYWORD = begin> 
+38: <IDENTIFIER = current_number> <ASSIGNMENT> <IDENTIFIER = print_primes_min> <SEMICOLON> 
+40: <KEYWORD = while> <IDENTIFIER = current_number> <LESS_OR_EQUAL_THAN> <IDENTIFIER = print_primes_max> <KEYWORD = do> 
+41: <KEYWORD = begin> 
+42: <IDENTIFIER = is_prime_arg_1> <ASSIGNMENT> <IDENTIFIER = current_number> <SEMICOLON> 
+43: <KEYWORD = call> <IDENTIFIER = is_prime> <SEMICOLON> 
+44: <KEYWORD = if> <IDENTIFIER = is_prime_result> <EQUALS> <NUMBER = 1> <KEYWORD = then> 
+45: <KEYWORD = begin> 
+46: <EXCLAMATION> <IDENTIFIER = current_number> 
+47: <KEYWORD = end> <SEMICOLON> 
+48: <IDENTIFIER = current_number> <ASSIGNMENT> <IDENTIFIER = current_number> <PLUS> <NUMBER = 1> 
+49: <KEYWORD = end> 
+50: <KEYWORD = end> <SEMICOLON> 
+52: <KEYWORD = begin> 
+53: <IDENTIFIER = print_primes_min> <ASSIGNMENT> <NUMBER = 1> <SEMICOLON> 
+54: <IDENTIFIER = print_primes_max> <ASSIGNMENT> <NUMBER = 100> <SEMICOLON> 
+55: <KEYWORD = call> <IDENTIFIER = print_primes> 
+56: <KEYWORD = end> <DOT> <EOF> 
+---
+{'program': {'block': {'variable_declarations': [{'identifier': 'modulo_arg_1'}, {'identifier': 'modulo_arg_2'}, {'identifier': 'modulo_result'}, {'identifier': 'is_prime_arg_1'}, {'identifier': 'is_prime_result'}, {'identifier': 'print_primes_min'}, {'identifier': 'print_primes_max'}], 'procedure_definitions': [{'procedure_name': {'identifier': 'modulo'}, 'procedure_body': {'block': {'variable_declarations': [{'identifier': 'remainder'}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'remainder'}, 'right': {'identifier': 'modulo_arg_1'}}}, {'while_loop': {'condition': {'operation': '>=', 'left': {'identifier': 'remainder'}, 'right': {'number': 0}}, 'statement': {'assignment': {'left': {'identifier': 'remainder'}, 'right': {'binary_operation': {'operation': '-', 'left': {'identifier': 'remainder'}, 'right': {'identifier': 'modulo_arg_2'}}}}}}}, {'assignment': {'left': {'identifier': 'modulo_result'}, 'right': {'binary_operation': {'operation': '+', 'left': {'identifier': 'remainder'}, 'right': {'identifier': 'modulo_arg_2'}}}}}]}}}}, {'procedure_name': {'identifier': 'is_prime'}, 'procedure_body': {'block': {'variable_declarations': [{'identifier': 'i'}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'is_prime_result'}, 'right': {'number': 1}}}, {'assignment': {'left': {'identifier': 'i'}, 'right': {'number': 2}}}, {'while_loop': {'condition': {'operation': '<', 'left': {'identifier': 'i'}, 'right': {'identifier': 'is_prime_arg_1'}}, 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'modulo_arg_1'}, 'right': {'identifier': 'is_prime_arg_1'}}}, {'assignment': {'left': {'identifier': 'modulo_arg_2'}, 'right': {'identifier': 'i'}}}, {'call': {'identifier': 'modulo'}}, {'if': {'condition': {'operation': '=', 'left': {'identifier': 'modulo_result'}, 'right': {'number': 0}}, 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'is_prime_result'}, 'right': {'number': 0}}}, {'assignment': {'left': {'identifier': 'i'}, 'right': {'identifier': 'is_prime_arg_1'}}}]}}}, {'assignment': {'left': {'identifier': 'i'}, 'right': {'binary_operation': {'operation': '+', 'left': {'identifier': 'i'}, 'right': {'number': 1}}}}}]}}}]}}}}, {'procedure_name': {'identifier': 'print_primes'}, 'procedure_body': {'block': {'variable_declarations': [{'identifier': 'current_number'}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'current_number'}, 'right': {'identifier': 'print_primes_min'}}}, {'while_loop': {'condition': {'operation': '<=', 'left': {'identifier': 'current_number'}, 'right': {'identifier': 'print_primes_max'}}, 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'is_prime_arg_1'}, 'right': {'identifier': 'current_number'}}}, {'call': {'identifier': 'is_prime'}}, {'if': {'condition': {'operation': '=', 'left': {'identifier': 'is_prime_result'}, 'right': {'number': 1}}, 'statement': {'begin_block': [{'exclamation': {'identifier': 'current_number'}}]}}}, {'assignment': {'left': {'identifier': 'current_number'}, 'right': {'binary_operation': {'operation': '+', 'left': {'identifier': 'current_number'}, 'right': {'number': 1}}}}}]}}}]}}}}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'print_primes_min'}, 'right': {'number': 1}}}, {'assignment': {'left': {'identifier': 'print_primes_max'}, 'right': {'number': 100}}}, {'call': {'identifier': 'print_primes'}}]}}}}
+---
+program
+└──block
+   └──variable_declarations
+      └──modulo_arg_1
+      └──modulo_arg_2
+      └──modulo_result
+      └──is_prime_arg_1
+      └──is_prime_result
+      └──print_primes_min
+      └──print_primes_max
+   └──procedure_definitions
+      └──procedure_name
+         └──modulo
+      └──procedure_body
+         └──block
+            └──variable_declarations
+               └──remainder
+            └──statement
+               └──begin_block
+                  └──assignment
+                     └──remainder
+                     └──modulo_arg_1
+                  └──while_loop
+                     └──>=
+                        └──remainder
+                        └──0
+                     └──statement
+                        └──assignment
+                           └──remainder
+                           └──-
+                              └──remainder
+                              └──modulo_arg_2
+                  └──assignment
+                     └──modulo_result
+                     └──+
+                        └──remainder
+                        └──modulo_arg_2
+      └──procedure_name
+         └──is_prime
+      └──procedure_body
+         └──block
+            └──variable_declarations
+               └──i
+            └──statement
+               └──begin_block
+                  └──assignment
+                     └──is_prime_result
+                     └──1
+                  └──assignment
+                     └──i
+                     └──2
+                  └──while_loop
+                     └──<
+                        └──i
+                        └──is_prime_arg_1
+                     └──statement
+                        └──begin_block
+                           └──assignment
+                              └──modulo_arg_1
+                              └──is_prime_arg_1
+                           └──assignment
+                              └──modulo_arg_2
+                              └──i
+                           └──call
+                              └──modulo
+                           └──if
+                              └──=
+                                 └──modulo_result
+                                 └──0
+                              └──statement
+                                 └──begin_block
+                                    └──assignment
+                                       └──is_prime_result
+                                       └──0
+                                    └──assignment
+                                       └──i
+                                       └──is_prime_arg_1
+                           └──assignment
+                              └──i
+                              └──+
+                                 └──i
+                                 └──1
+      └──procedure_name
+         └──print_primes
+      └──procedure_body
+         └──block
+            └──variable_declarations
+               └──current_number
+            └──statement
+               └──begin_block
+                  └──assignment
+                     └──current_number
+                     └──print_primes_min
+                  └──while_loop
+                     └──<=
+                        └──current_number
+                        └──print_primes_max
+                     └──statement
+                        └──begin_block
+                           └──assignment
+                              └──is_prime_arg_1
+                              └──current_number
+                           └──call
+                              └──is_prime
+                           └──if
+                              └──=
+                                 └──is_prime_result
+                                 └──1
+                              └──statement
+                                 └──begin_block
+                                    └──exclamation
+                                       └──current_number
+                           └──assignment
+                              └──current_number
+                              └──+
+                                 └──current_number
+                                 └──1
+   └──statement
+      └──begin_block
+         └──assignment
+            └──print_primes_min
+            └──1
+         └──assignment
+            └──print_primes_max
+            └──100
+         └──call
+            └──print_primes
+---
+modulo_arg_1 = None
+modulo_arg_2 = None
+modulo_result = None
+is_prime_arg_1 = None
+is_prime_result = None
+print_primes_min = None
+print_primes_max = None
+
+def modulo():
+	global modulo_arg_1, modulo_arg_2, modulo_result
+	remainder = None
+	
+	remainder = modulo_arg_1
+	while remainder >= 0:
+		remainder = remainder - modulo_arg_2
+	modulo_result = remainder + modulo_arg_2
+
+def is_prime():
+	global is_prime_result, is_prime_arg_1, modulo_arg_1, modulo_arg_2, modulo_result
+	i = None
+	
+	is_prime_result = 1
+	i = 2
+	while i < is_prime_arg_1:
+		modulo_arg_1 = is_prime_arg_1
+		modulo_arg_2 = i
+		modulo()
+		if modulo_result == 0:
+			is_prime_result = 0
+			i = is_prime_arg_1
+		i = i + 1
+
+def print_primes():
+	global print_primes_min, print_primes_max, is_prime_arg_1, is_prime_result
+	current_number = None
+	
+	current_number = print_primes_min
+	while current_number <= print_primes_max:
+		is_prime_arg_1 = current_number
+		is_prime()
+		if is_prime_result == 1:
+			print(current_number)
+		current_number = current_number + 1
+
+print_primes_min = 1
+print_primes_max = 100
+print_primes()
+---
+1
+2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97

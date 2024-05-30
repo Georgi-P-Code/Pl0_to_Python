@@ -1,0 +1,11 @@
+var a;
+
+procedure f1;
+    begin
+        a := 33
+    end;
+
+begin
+    call f1;
+    !a
+end.

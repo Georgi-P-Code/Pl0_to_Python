@@ -1,0 +1,110 @@
+[KEYWORD = var, IDENTIFIER = arg_1, COMMA, IDENTIFIER = counter, SEMICOLON, KEYWORD = procedure, IDENTIFIER = reset_counter, SEMICOLON, KEYWORD = begin, IDENTIFIER = counter, ASSIGNMENT, NUMBER = 1, KEYWORD = end, SEMICOLON, KEYWORD = procedure, IDENTIFIER = increment_by, SEMICOLON, KEYWORD = begin, IDENTIFIER = counter, ASSIGNMENT, IDENTIFIER = counter, PLUS, IDENTIFIER = arg_1, KEYWORD = end, SEMICOLON, KEYWORD = procedure, IDENTIFIER = decrement_by, SEMICOLON, KEYWORD = begin, IDENTIFIER = counter, ASSIGNMENT, IDENTIFIER = counter, MINUS, IDENTIFIER = arg_1, KEYWORD = end, SEMICOLON, KEYWORD = procedure, IDENTIFIER = print_counter, SEMICOLON, KEYWORD = begin, EXCLAMATION, IDENTIFIER = counter, KEYWORD = end, SEMICOLON, KEYWORD = begin, KEYWORD = call, IDENTIFIER = reset_counter, SEMICOLON, IDENTIFIER = arg_1, ASSIGNMENT, NUMBER = 5, SEMICOLON, KEYWORD = call, IDENTIFIER = increment_by, SEMICOLON, KEYWORD = call, IDENTIFIER = print_counter, KEYWORD = end, DOT, EOF]
+---
+1: <KEYWORD = var> <IDENTIFIER = arg_1> <COMMA> <IDENTIFIER = counter> <SEMICOLON> 
+3: <KEYWORD = procedure> <IDENTIFIER = reset_counter> <SEMICOLON> 
+4: <KEYWORD = begin> 
+5: <IDENTIFIER = counter> <ASSIGNMENT> <NUMBER = 1> 
+6: <KEYWORD = end> <SEMICOLON> 
+8: <KEYWORD = procedure> <IDENTIFIER = increment_by> <SEMICOLON> 
+9: <KEYWORD = begin> 
+10: <IDENTIFIER = counter> <ASSIGNMENT> <IDENTIFIER = counter> <PLUS> <IDENTIFIER = arg_1> 
+11: <KEYWORD = end> <SEMICOLON> 
+13: <KEYWORD = procedure> <IDENTIFIER = decrement_by> <SEMICOLON> 
+14: <KEYWORD = begin> 
+15: <IDENTIFIER = counter> <ASSIGNMENT> <IDENTIFIER = counter> <MINUS> <IDENTIFIER = arg_1> 
+16: <KEYWORD = end> <SEMICOLON> 
+18: <KEYWORD = procedure> <IDENTIFIER = print_counter> <SEMICOLON> 
+19: <KEYWORD = begin> 
+20: <EXCLAMATION> <IDENTIFIER = counter> 
+21: <KEYWORD = end> <SEMICOLON> 
+23: <KEYWORD = begin> 
+24: <KEYWORD = call> <IDENTIFIER = reset_counter> <SEMICOLON> 
+25: <IDENTIFIER = arg_1> <ASSIGNMENT> <NUMBER = 5> <SEMICOLON> 
+26: <KEYWORD = call> <IDENTIFIER = increment_by> <SEMICOLON> 
+27: <KEYWORD = call> <IDENTIFIER = print_counter> 
+28: <KEYWORD = end> <DOT> <EOF> 
+---
+{'program': {'block': {'variable_declarations': [{'identifier': 'arg_1'}, {'identifier': 'counter'}], 'procedure_definitions': [{'procedure_name': {'identifier': 'reset_counter'}, 'procedure_body': {'block': {'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'counter'}, 'right': {'number': 1}}}]}}}}, {'procedure_name': {'identifier': 'increment_by'}, 'procedure_body': {'block': {'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'counter'}, 'right': {'binary_operation': {'operation': '+', 'left': {'identifier': 'counter'}, 'right': {'identifier': 'arg_1'}}}}}]}}}}, {'procedure_name': {'identifier': 'decrement_by'}, 'procedure_body': {'block': {'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'counter'}, 'right': {'binary_operation': {'operation': '-', 'left': {'identifier': 'counter'}, 'right': {'identifier': 'arg_1'}}}}}]}}}}, {'procedure_name': {'identifier': 'print_counter'}, 'procedure_body': {'block': {'statement': {'begin_block': [{'exclamation': {'identifier': 'counter'}}]}}}}], 'statement': {'begin_block': [{'call': {'identifier': 'reset_counter'}}, {'assignment': {'left': {'identifier': 'arg_1'}, 'right': {'number': 5}}}, {'call': {'identifier': 'increment_by'}}, {'call': {'identifier': 'print_counter'}}]}}}}
+---
+program
+└──block
+   └──variable_declarations
+      └──arg_1
+      └──counter
+   └──procedure_definitions
+      └──procedure_name
+         └──reset_counter
+      └──procedure_body
+         └──block
+            └──statement
+               └──begin_block
+                  └──assignment
+                     └──counter
+                     └──1
+      └──procedure_name
+         └──increment_by
+      └──procedure_body
+         └──block
+            └──statement
+               └──begin_block
+                  └──assignment
+                     └──counter
+                     └──+
+                        └──counter
+                        └──arg_1
+      └──procedure_name
+         └──decrement_by
+      └──procedure_body
+         └──block
+            └──statement
+               └──begin_block
+                  └──assignment
+                     └──counter
+                     └──-
+                        └──counter
+                        └──arg_1
+      └──procedure_name
+         └──print_counter
+      └──procedure_body
+         └──block
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──counter
+   └──statement
+      └──begin_block
+         └──call
+            └──reset_counter
+         └──assignment
+            └──arg_1
+            └──5
+         └──call
+            └──increment_by
+         └──call
+            └──print_counter
+---
+arg_1 = None
+counter = None
+
+def reset_counter():
+	global counter
+	counter = 1
+
+def increment_by():
+	global counter, arg_1
+	counter = counter + arg_1
+
+def decrement_by():
+	global counter, arg_1
+	counter = counter - arg_1
+
+def print_counter():
+	global counter
+	print(counter)
+
+reset_counter()
+arg_1 = 5
+increment_by()
+print_counter()
+---
+6

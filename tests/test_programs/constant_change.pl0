@@ -1,0 +1,5 @@
+const max=100;
+begin
+    max := 200;
+    !max
+end.

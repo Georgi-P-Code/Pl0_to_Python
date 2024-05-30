@@ -1,0 +1,19 @@
+[KEYWORD = var, IDENTIFIER = i, SEMICOLON, DOT, EOF]
+---
+1: <KEYWORD = var> <IDENTIFIER = i> <SEMICOLON> 
+2: <DOT> <EOF> 
+---
+{'program': {'block': {'variable_declarations': [{'identifier': 'i'}], 'statement': {'empty_statement': None}}}}
+---
+program
+└──block
+   └──variable_declarations
+      └──i
+   └──statement
+      └──empty_statement
+         └──None
+---
+i = None
+
+pass
+---

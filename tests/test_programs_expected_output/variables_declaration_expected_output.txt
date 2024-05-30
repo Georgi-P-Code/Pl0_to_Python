@@ -1,0 +1,43 @@
+[KEYWORD = var, IDENTIFIER = a, COMMA, IDENTIFIER = b, COMMA, IDENTIFIER = v, COMMA, IDENTIFIER = g, COMMA, IDENTIFIER = d, COMMA, IDENTIFIER = e, COMMA, IDENTIFIER = j, COMMA, IDENTIFIER = z, COMMA, IDENTIFIER = i, COMMA, IDENTIFIER = ik, COMMA, IDENTIFIER = k, COMMA, IDENTIFIER = l, COMMA, IDENTIFIER = m, SEMICOLON, DOT, EOF]
+---
+1: <KEYWORD = var> <IDENTIFIER = a> <COMMA> <IDENTIFIER = b> <COMMA> <IDENTIFIER = v> <COMMA> <IDENTIFIER = g> <COMMA> <IDENTIFIER = d> <COMMA> <IDENTIFIER = e> <COMMA> <IDENTIFIER = j> <COMMA> <IDENTIFIER = z> <COMMA> <IDENTIFIER = i> <COMMA> <IDENTIFIER = ik> <COMMA> <IDENTIFIER = k> <COMMA> <IDENTIFIER = l> <COMMA> <IDENTIFIER = m> <SEMICOLON> 
+2: <DOT> <EOF> 
+---
+{'program': {'block': {'variable_declarations': [{'identifier': 'a'}, {'identifier': 'b'}, {'identifier': 'v'}, {'identifier': 'g'}, {'identifier': 'd'}, {'identifier': 'e'}, {'identifier': 'j'}, {'identifier': 'z'}, {'identifier': 'i'}, {'identifier': 'ik'}, {'identifier': 'k'}, {'identifier': 'l'}, {'identifier': 'm'}], 'statement': {'empty_statement': None}}}}
+---
+program
+└──block
+   └──variable_declarations
+      └──a
+      └──b
+      └──v
+      └──g
+      └──d
+      └──e
+      └──j
+      └──z
+      └──i
+      └──ik
+      └──k
+      └──l
+      └──m
+   └──statement
+      └──empty_statement
+         └──None
+---
+a = None
+b = None
+v = None
+g = None
+d = None
+e = None
+j = None
+z = None
+i = None
+ik = None
+k = None
+l = None
+m = None
+
+pass
+---

@@ -1,0 +1,90 @@
+[KEYWORD = var, IDENTIFIER = a, SEMICOLON, KEYWORD = procedure, IDENTIFIER = f1, SEMICOLON, KEYWORD = var, IDENTIFIER = a, SEMICOLON, KEYWORD = procedure, IDENTIFIER = f2, SEMICOLON, KEYWORD = var, IDENTIFIER = a, SEMICOLON, KEYWORD = begin, IDENTIFIER = a, ASSIGNMENT, NUMBER = 2, SEMICOLON, EXCLAMATION, IDENTIFIER = a, KEYWORD = end, SEMICOLON, KEYWORD = begin, IDENTIFIER = a, ASSIGNMENT, NUMBER = 1, SEMICOLON, KEYWORD = call, IDENTIFIER = f2, SEMICOLON, EXCLAMATION, IDENTIFIER = a, KEYWORD = end, SEMICOLON, KEYWORD = begin, IDENTIFIER = a, ASSIGNMENT, NUMBER = 0, SEMICOLON, KEYWORD = call, IDENTIFIER = f1, SEMICOLON, EXCLAMATION, IDENTIFIER = a, KEYWORD = end, DOT, EOF]
+---
+1: <KEYWORD = var> <IDENTIFIER = a> <SEMICOLON> 
+3: <KEYWORD = procedure> <IDENTIFIER = f1> <SEMICOLON> 
+4: <KEYWORD = var> <IDENTIFIER = a> <SEMICOLON> 
+6: <KEYWORD = procedure> <IDENTIFIER = f2> <SEMICOLON> 
+7: <KEYWORD = var> <IDENTIFIER = a> <SEMICOLON> 
+8: <KEYWORD = begin> 
+9: <IDENTIFIER = a> <ASSIGNMENT> <NUMBER = 2> <SEMICOLON> 
+10: <EXCLAMATION> <IDENTIFIER = a> 
+11: <KEYWORD = end> <SEMICOLON> 
+13: <KEYWORD = begin> 
+14: <IDENTIFIER = a> <ASSIGNMENT> <NUMBER = 1> <SEMICOLON> 
+15: <KEYWORD = call> <IDENTIFIER = f2> <SEMICOLON> 
+16: <EXCLAMATION> <IDENTIFIER = a> 
+17: <KEYWORD = end> <SEMICOLON> 
+19: <KEYWORD = begin> 
+20: <IDENTIFIER = a> <ASSIGNMENT> <NUMBER = 0> <SEMICOLON> 
+21: <KEYWORD = call> <IDENTIFIER = f1> <SEMICOLON> 
+22: <EXCLAMATION> <IDENTIFIER = a> 
+23: <KEYWORD = end> <DOT> <EOF> 
+---
+{'program': {'block': {'variable_declarations': [{'identifier': 'a'}], 'procedure_definitions': [{'procedure_name': {'identifier': 'f1'}, 'procedure_body': {'block': {'variable_declarations': [{'identifier': 'a'}], 'procedure_definitions': [{'procedure_name': {'identifier': 'f2'}, 'procedure_body': {'block': {'variable_declarations': [{'identifier': 'a'}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'a'}, 'right': {'number': 2}}}, {'exclamation': {'identifier': 'a'}}]}}}}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'a'}, 'right': {'number': 1}}}, {'call': {'identifier': 'f2'}}, {'exclamation': {'identifier': 'a'}}]}}}}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'a'}, 'right': {'number': 0}}}, {'call': {'identifier': 'f1'}}, {'exclamation': {'identifier': 'a'}}]}}}}
+---
+program
+└──block
+   └──variable_declarations
+      └──a
+   └──procedure_definitions
+      └──procedure_name
+         └──f1
+      └──procedure_body
+         └──block
+            └──variable_declarations
+               └──a
+            └──procedure_definitions
+               └──procedure_name
+                  └──f2
+               └──procedure_body
+                  └──block
+                     └──variable_declarations
+                        └──a
+                     └──statement
+                        └──begin_block
+                           └──assignment
+                              └──a
+                              └──2
+                           └──exclamation
+                              └──a
+            └──statement
+               └──begin_block
+                  └──assignment
+                     └──a
+                     └──1
+                  └──call
+                     └──f2
+                  └──exclamation
+                     └──a
+   └──statement
+      └──begin_block
+         └──assignment
+            └──a
+            └──0
+         └──call
+            └──f1
+         └──exclamation
+            └──a
+---
+a = None
+
+def f1():
+	a = None
+	
+	def f2():
+		a = None
+		
+		a = 2
+		print(a)
+
+	a = 1
+	f2()
+	print(a)
+
+a = 0
+f1()
+print(a)
+---
+2
+1
+0

@@ -48,8 +48,8 @@ class Ast_visualizer:
 					self.visit(node_body["right"])
 					self.indentation_level -= 1
 
-				elif node_name == "assignment":
-					self.result_add_line("assignment")
+				elif node_name in ["assignment", "constant_declaration"]:
+					self.result_add_line(node_name)
 					self.indentation_level += 1
 					self.visit(node_body["left"])
 					self.visit(node_body["right"])

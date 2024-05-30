@@ -12,6 +12,9 @@ begin
     !a;
     !b;
 
+    i := 1;
+    max := 100;
+
     while i < max do
     begin
         c := a + b;

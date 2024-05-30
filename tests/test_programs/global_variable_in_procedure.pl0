@@ -1,0 +1,27 @@
+var a;
+
+procedure increment_a;
+begin
+    a := a + 1
+end;
+
+procedure loop_b;
+var b;
+begin
+    b := 1;
+    while b < 10 do
+        b := b + 1;
+    !b
+end;
+
+begin
+    a := 1;
+
+    call increment_a;
+    call increment_a;
+    call increment_a;
+    !a;
+
+    call loop_b;
+    !b
+end.

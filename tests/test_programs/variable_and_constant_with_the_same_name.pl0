@@ -1,0 +1,7 @@
+const max=100;
+var max;
+
+begin
+    max := 200;
+    !max
+end.

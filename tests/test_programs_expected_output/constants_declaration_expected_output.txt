@@ -1,0 +1,40 @@
+[KEYWORD = const, IDENTIFIER = min, EQUALS, NUMBER = 1, COMMA, IDENTIFIER = max, EQUALS, NUMBER = 100, COMMA, IDENTIFIER = step, EQUALS, NUMBER = 5, SEMICOLON, KEYWORD = begin, EXCLAMATION, IDENTIFIER = min, SEMICOLON, EXCLAMATION, IDENTIFIER = max, SEMICOLON, EXCLAMATION, IDENTIFIER = step, KEYWORD = end, DOT, EOF]
+---
+1: <KEYWORD = const> <IDENTIFIER = min> <EQUALS> <NUMBER = 1> <COMMA> <IDENTIFIER = max> <EQUALS> <NUMBER = 100> <COMMA> <IDENTIFIER = step> <EQUALS> <NUMBER = 5> <SEMICOLON> 
+2: <KEYWORD = begin> 
+3: <EXCLAMATION> <IDENTIFIER = min> <SEMICOLON> 
+4: <EXCLAMATION> <IDENTIFIER = max> <SEMICOLON> 
+5: <EXCLAMATION> <IDENTIFIER = step> 
+6: <KEYWORD = end> <DOT> <EOF> 
+---
+{'program': {'block': {'constant_declarations': [{'constant_declaration': {'left': {'identifier': 'min'}, 'right': {'number': 1}}}, {'constant_declaration': {'left': {'identifier': 'max'}, 'right': {'number': 100}}}, {'constant_declaration': {'left': {'identifier': 'step'}, 'right': {'number': 5}}}], 'statement': {'begin_block': [{'exclamation': {'identifier': 'min'}}, {'exclamation': {'identifier': 'max'}}, {'exclamation': {'identifier': 'step'}}]}}}}
+---
+program
+└──block
+   └──constant_declarations
+      └──constant_declaration
+         └──min
+         └──1
+      └──constant_declaration
+         └──max
+         └──100
+      └──constant_declaration
+         └──step
+         └──5
+   └──statement
+      └──begin_block
+         └──exclamation
+            └──min
+         └──exclamation
+            └──max
+         └──exclamation
+            └──step
+---
+min = 1; max = 100; step = 5
+print(min)
+print(max)
+print(step)
+---
+1
+100
+5
