@@ -95,6 +95,9 @@ class Translator:
             case "exclamation":
                 result = self.evaluate_exclamation(node)
 
+            case "question_mark":
+                result = self.evaluate_question_mark(node)
+
             case "binary_operation":
                 result = self.evaluate_binary_operation(node)
 
@@ -238,6 +241,12 @@ class Translator:
     def evaluate_exclamation(self, node):
         child_node = self.get_value(node)
         return f"print({self.evaluate(child_node)})"
+
+
+    def evaluate_question_mark(self, node):
+        child_node = self.get_value(node)
+        identifier_name = self.evaluate(child_node)
+        return f'print(f"{identifier_name} = {{{identifier_name}}}")'
 
 
     def evaluate_begin_block(self, node):
