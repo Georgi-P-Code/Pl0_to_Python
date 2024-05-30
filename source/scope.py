@@ -25,8 +25,6 @@ class Scope:
         if scope == "default":
             scope = self
 
-        #print(f'is_visible: {identifier_name} in {scope.name}')
-
         result = self.is_in_scope(identifier_name, scope)
 
         if result:

@@ -20,6 +20,7 @@ class Parser:
         except IndexError:
             return None
 
+
     def current_token(self):
         return self.get_token()
 
@@ -77,16 +78,10 @@ class Parser:
             self.current_scope.add_scope(new_scope_instance)
             self.current_scope = new_scope_instance
 
-        #print(f"parser.py: New scope (level {self.current_scope.level})")
-
 
     def exit_scope(self):
         if self.current_scope is None:
             raise Exception("Exited out of scope, but weren't in one")
-
-        #print(f"parser.py: Exit scope (level {self.current_scope.level})")
-        # if self.current_scope.level == 1:
-        #     print(self.root_scope)
 
         self.current_scope = self.current_scope.parent
 
