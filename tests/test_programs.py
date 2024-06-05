@@ -146,3 +146,7 @@ def test_counter():
 
 def test_prime_numbers():
     full_test("prime_numbers")
+
+
+def test_all_grammar_use():
+    full_test("all_grammar_use")

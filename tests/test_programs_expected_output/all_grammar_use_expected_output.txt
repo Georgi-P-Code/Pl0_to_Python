@@ -1,0 +1,242 @@
+[KEYWORD = const, IDENTIFIER = max, EQUALS, NUMBER = 100, SEMICOLON, KEYWORD = var, IDENTIFIER = i, COMMA, IDENTIFIER = a, COMMA, IDENTIFIER = b, COMMA, IDENTIFIER = c, SEMICOLON, KEYWORD = procedure, IDENTIFIER = p1, SEMICOLON, KEYWORD = begin, EXCLAMATION, NUMBER = 1, PLUS, NUMBER = 999, KEYWORD = end, SEMICOLON, KEYWORD = begin, IDENTIFIER = i, ASSIGNMENT, NUMBER = 1, SEMICOLON, IDENTIFIER = a, ASSIGNMENT, NUMBER = 10, SEMICOLON, IDENTIFIER = b, ASSIGNMENT, MINUS, NUMBER = 10, SEMICOLON, KEYWORD = call, IDENTIFIER = p1, SEMICOLON, QUESTION_MARK, IDENTIFIER = i, SEMICOLON, KEYWORD = if, KEYWORD = odd, NUMBER = 1, KEYWORD = then, KEYWORD = begin, EXCLAMATION, NUMBER = 300, KEYWORD = end, SEMICOLON, KEYWORD = if, IDENTIFIER = i, EQUALS, NUMBER = 1, KEYWORD = then, KEYWORD = begin, EXCLAMATION, NUMBER = 301, KEYWORD = end, SEMICOLON, KEYWORD = if, IDENTIFIER = a, HASH, NUMBER = 1, KEYWORD = then, KEYWORD = begin, EXCLAMATION, NUMBER = 302, KEYWORD = end, SEMICOLON, KEYWORD = if, IDENTIFIER = b, LESS_THAN, NUMBER = 1, KEYWORD = then, KEYWORD = begin, EXCLAMATION, NUMBER = 303, KEYWORD = end, SEMICOLON, KEYWORD = if, IDENTIFIER = b, LESS_OR_EQUAL_THAN, MINUS, NUMBER = 9, KEYWORD = then, KEYWORD = begin, EXCLAMATION, NUMBER = 304, KEYWORD = end, SEMICOLON, KEYWORD = if, IDENTIFIER = a, GREATER_THAN, NUMBER = 1, KEYWORD = then, KEYWORD = begin, EXCLAMATION, NUMBER = 305, KEYWORD = end, SEMICOLON, KEYWORD = if, IDENTIFIER = a, GREATER_OR_EQUAL_THAN, NUMBER = 9, KEYWORD = then, KEYWORD = begin, EXCLAMATION, NUMBER = 306, KEYWORD = end, SEMICOLON, KEYWORD = while, IDENTIFIER = i, LESS_OR_EQUAL_THAN, NUMBER = 10, KEYWORD = do, KEYWORD = begin, EXCLAMATION, IDENTIFIER = i, SEMICOLON, IDENTIFIER = i, ASSIGNMENT, IDENTIFIER = i, PLUS, NUMBER = 1, KEYWORD = end, SEMICOLON, EXCLAMATION, MINUS, LEFT_PARENTHESIS, LEFT_PARENTHESIS, NUMBER = 5, PLUS, NUMBER = 5, PLUS, NUMBER = 10, MINUS, IDENTIFIER = a, RIGHT_PARENTHESIS, MULTIPLICATION, LEFT_PARENTHESIS, NUMBER = 16, DIVISION, PLUS, NUMBER = 4, RIGHT_PARENTHESIS, RIGHT_PARENTHESIS, KEYWORD = end, DOT, EOF]
+---
+1: <KEYWORD = const> <IDENTIFIER = max> <EQUALS> <NUMBER = 100> <SEMICOLON> 
+2: <KEYWORD = var> <IDENTIFIER = i> <COMMA> <IDENTIFIER = a> <COMMA> <IDENTIFIER = b> <COMMA> <IDENTIFIER = c> <SEMICOLON> 
+4: <KEYWORD = procedure> <IDENTIFIER = p1> <SEMICOLON> 
+5: <KEYWORD = begin> 
+6: <EXCLAMATION> <NUMBER = 1> <PLUS> <NUMBER = 999> 
+7: <KEYWORD = end> <SEMICOLON> 
+9: <KEYWORD = begin> 
+10: <IDENTIFIER = i> <ASSIGNMENT> <NUMBER = 1> <SEMICOLON> 
+11: <IDENTIFIER = a> <ASSIGNMENT> <NUMBER = 10> <SEMICOLON> 
+12: <IDENTIFIER = b> <ASSIGNMENT> <MINUS> <NUMBER = 10> <SEMICOLON> 
+13: <KEYWORD = call> <IDENTIFIER = p1> <SEMICOLON> 
+14: <QUESTION_MARK> <IDENTIFIER = i> <SEMICOLON> 
+16: <KEYWORD = if> <KEYWORD = odd> <NUMBER = 1> <KEYWORD = then> 
+17: <KEYWORD = begin> 
+18: <EXCLAMATION> <NUMBER = 300> 
+19: <KEYWORD = end> <SEMICOLON> 
+21: <KEYWORD = if> <IDENTIFIER = i> <EQUALS> <NUMBER = 1> <KEYWORD = then> 
+22: <KEYWORD = begin> 
+23: <EXCLAMATION> <NUMBER = 301> 
+24: <KEYWORD = end> <SEMICOLON> 
+26: <KEYWORD = if> <IDENTIFIER = a> <HASH> <NUMBER = 1> <KEYWORD = then> 
+27: <KEYWORD = begin> 
+28: <EXCLAMATION> <NUMBER = 302> 
+29: <KEYWORD = end> <SEMICOLON> 
+31: <KEYWORD = if> <IDENTIFIER = b> <LESS_THAN> <NUMBER = 1> <KEYWORD = then> 
+32: <KEYWORD = begin> 
+33: <EXCLAMATION> <NUMBER = 303> 
+34: <KEYWORD = end> <SEMICOLON> 
+36: <KEYWORD = if> <IDENTIFIER = b> <LESS_OR_EQUAL_THAN> <MINUS> <NUMBER = 9> <KEYWORD = then> 
+37: <KEYWORD = begin> 
+38: <EXCLAMATION> <NUMBER = 304> 
+39: <KEYWORD = end> <SEMICOLON> 
+41: <KEYWORD = if> <IDENTIFIER = a> <GREATER_THAN> <NUMBER = 1> <KEYWORD = then> 
+42: <KEYWORD = begin> 
+43: <EXCLAMATION> <NUMBER = 305> 
+44: <KEYWORD = end> <SEMICOLON> 
+46: <KEYWORD = if> <IDENTIFIER = a> <GREATER_OR_EQUAL_THAN> <NUMBER = 9> <KEYWORD = then> 
+47: <KEYWORD = begin> 
+48: <EXCLAMATION> <NUMBER = 306> 
+49: <KEYWORD = end> <SEMICOLON> 
+51: <KEYWORD = while> <IDENTIFIER = i> <LESS_OR_EQUAL_THAN> <NUMBER = 10> <KEYWORD = do> 
+52: <KEYWORD = begin> 
+53: <EXCLAMATION> <IDENTIFIER = i> <SEMICOLON> 
+54: <IDENTIFIER = i> <ASSIGNMENT> <IDENTIFIER = i> <PLUS> <NUMBER = 1> 
+55: <KEYWORD = end> <SEMICOLON> 
+57: <EXCLAMATION> <MINUS> <LEFT_PARENTHESIS> <LEFT_PARENTHESIS> <NUMBER = 5> <PLUS> <NUMBER = 5> <PLUS> <NUMBER = 10> <MINUS> <IDENTIFIER = a> <RIGHT_PARENTHESIS> <MULTIPLICATION> <LEFT_PARENTHESIS> <NUMBER = 16> <DIVISION> <PLUS> <NUMBER = 4> <RIGHT_PARENTHESIS> <RIGHT_PARENTHESIS> 
+59: <KEYWORD = end> <DOT> <EOF> 
+---
+{'program': {'block': {'constant_declarations': [{'constant_declaration': {'left': {'identifier': 'max'}, 'right': {'number': 100}}}], 'variable_declarations': [{'identifier': 'i'}, {'identifier': 'a'}, {'identifier': 'b'}, {'identifier': 'c'}], 'procedure_definitions': [{'procedure_name': {'identifier': 'p1'}, 'procedure_body': {'block': {'statement': {'begin_block': [{'exclamation': {'binary_operation': {'operation': '+', 'left': {'number': 1}, 'right': {'number': 999}}}}]}}}}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'i'}, 'right': {'number': 1}}}, {'assignment': {'left': {'identifier': 'a'}, 'right': {'number': 10}}}, {'assignment': {'left': {'identifier': 'b'}, 'right': {'unary_operation': {'operation': '-', 'left': {'number': 10}}}}}, {'call': {'identifier': 'p1'}}, {'question_mark': {'identifier': 'i'}}, {'if': {'condition': {'odd': {'number': 1}}, 'statement': {'begin_block': [{'exclamation': {'number': 300}}]}}}, {'if': {'condition': {'operation': '=', 'left': {'identifier': 'i'}, 'right': {'number': 1}}, 'statement': {'begin_block': [{'exclamation': {'number': 301}}]}}}, {'if': {'condition': {'operation': '#', 'left': {'identifier': 'a'}, 'right': {'number': 1}}, 'statement': {'begin_block': [{'exclamation': {'number': 302}}]}}}, {'if': {'condition': {'operation': '<', 'left': {'identifier': 'b'}, 'right': {'number': 1}}, 'statement': {'begin_block': [{'exclamation': {'number': 303}}]}}}, {'if': {'condition': {'operation': '<=', 'left': {'identifier': 'b'}, 'right': {'unary_operation': {'operation': '-', 'left': {'number': 9}}}}, 'statement': {'begin_block': [{'exclamation': {'number': 304}}]}}}, {'if': {'condition': {'operation': '>', 'left': {'identifier': 'a'}, 'right': {'number': 1}}, 'statement': {'begin_block': [{'exclamation': {'number': 305}}]}}}, {'if': {'condition': {'operation': '>=', 'left': {'identifier': 'a'}, 'right': {'number': 9}}, 'statement': {'begin_block': [{'exclamation': {'number': 306}}]}}}, {'while_loop': {'condition': {'operation': '<=', 'left': {'identifier': 'i'}, 'right': {'number': 10}}, 'statement': {'begin_block': [{'exclamation': {'identifier': 'i'}}, {'assignment': {'left': {'identifier': 'i'}, 'right': {'binary_operation': {'operation': '+', 'left': {'identifier': 'i'}, 'right': {'number': 1}}}}}]}}}, {'exclamation': {'unary_operation': {'operation': '-', 'left': {'expression': {'binary_operation': {'operation': '*', 'left': {'expression': {'binary_operation': {'operation': '-', 'left': {'binary_operation': {'operation': '+', 'left': {'binary_operation': {'operation': '+', 'left': {'number': 5}, 'right': {'number': 5}}}, 'right': {'number': 10}}}, 'right': {'identifier': 'a'}}}}, 'right': {'expression': {'binary_operation': {'operation': '/', 'left': {'number': 16}, 'right': {'unary_operation': {'operation': '+', 'left': {'number': 4}}}}}}}}}}}}]}}}}
+---
+program
+└──block
+   └──constant_declarations
+      └──constant_declaration
+         └──max
+         └──100
+   └──variable_declarations
+      └──i
+      └──a
+      └──b
+      └──c
+   └──procedure_definitions
+      └──procedure_name
+         └──p1
+      └──procedure_body
+         └──block
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──+
+                        └──1
+                        └──999
+   └──statement
+      └──begin_block
+         └──assignment
+            └──i
+            └──1
+         └──assignment
+            └──a
+            └──10
+         └──assignment
+            └──b
+            └──unary_operation
+               └──operation
+                  └──-
+               └──left
+                  └──10
+         └──call
+            └──p1
+         └──question_mark
+            └──i
+         └──if
+            └──odd
+               └──1
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──300
+         └──if
+            └──=
+               └──i
+               └──1
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──301
+         └──if
+            └──#
+               └──a
+               └──1
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──302
+         └──if
+            └──<
+               └──b
+               └──1
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──303
+         └──if
+            └──<=
+               └──b
+               └──unary_operation
+                  └──operation
+                     └──-
+                  └──left
+                     └──9
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──304
+         └──if
+            └──>
+               └──a
+               └──1
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──305
+         └──if
+            └──>=
+               └──a
+               └──9
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──306
+         └──while_loop
+            └──<=
+               └──i
+               └──10
+            └──statement
+               └──begin_block
+                  └──exclamation
+                     └──i
+                  └──assignment
+                     └──i
+                     └──+
+                        └──i
+                        └──1
+         └──exclamation
+            └──unary_operation
+               └──operation
+                  └──-
+               └──left
+                  └──expression
+                     └──*
+                        └──expression
+                           └──-
+                              └──+
+                                 └──+
+                                    └──5
+                                    └──5
+                                 └──10
+                              └──a
+                        └──expression
+                           └──/
+                              └──16
+                              └──unary_operation
+                                 └──operation
+                                    └──+
+                                 └──left
+                                    └──4
+---
+max = 100
+i = None
+a = None
+b = None
+c = None
+
+def p1():
+	print(1 + 999)
+
+i = 1
+a = 10
+b = -10
+p1()
+print(f"i = {i}")
+if (1)%2 != 0:
+	print(300)
+if i == 1:
+	print(301)
+if a != 1:
+	print(302)
+if b < 1:
+	print(303)
+if b <= -9:
+	print(304)
+if a > 1:
+	print(305)
+if a >= 9:
+	print(306)
+while i <= 10:
+	print(i)
+	i = i + 1
+print(-((5 + 5 + 10 - a) * (16 / +4)))
+---
+1000
+i = 1
+300
+301
+302
+303
+304
+305
+306
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+-40.0
