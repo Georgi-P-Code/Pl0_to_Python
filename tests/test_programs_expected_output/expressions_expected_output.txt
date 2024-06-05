@@ -1,0 +1,76 @@
+[KEYWORD = begin, EXCLAMATION, MINUS, LEFT_PARENTHESIS, MINUS, NUMBER = 1, PLUS, MINUS, NUMBER = 1, PLUS, NUMBER = 22, RIGHT_PARENTHESIS, SEMICOLON, EXCLAMATION, MINUS, MINUS, NUMBER = 1, PLUS, MINUS, NUMBER = 1, PLUS, NUMBER = 22, SEMICOLON, EXCLAMATION, LEFT_PARENTHESIS, NUMBER = 6, PLUS, NUMBER = 14, RIGHT_PARENTHESIS, DIVISION, LEFT_PARENTHESIS, MINUS, NUMBER = 2, MULTIPLICATION, LEFT_PARENTHESIS, NUMBER = 2, PLUS, NUMBER = 3, RIGHT_PARENTHESIS, RIGHT_PARENTHESIS, KEYWORD = end, DOT, EOF]
+---
+1: <KEYWORD = begin> 
+2: <EXCLAMATION> <MINUS> <LEFT_PARENTHESIS> <MINUS> <NUMBER = 1> <PLUS> <MINUS> <NUMBER = 1> <PLUS> <NUMBER = 22> <RIGHT_PARENTHESIS> <SEMICOLON> 
+3: <EXCLAMATION> <MINUS> <MINUS> <NUMBER = 1> <PLUS> <MINUS> <NUMBER = 1> <PLUS> <NUMBER = 22> <SEMICOLON> 
+4: <EXCLAMATION> <LEFT_PARENTHESIS> <NUMBER = 6> <PLUS> <NUMBER = 14> <RIGHT_PARENTHESIS> <DIVISION> <LEFT_PARENTHESIS> <MINUS> <NUMBER = 2> <MULTIPLICATION> <LEFT_PARENTHESIS> <NUMBER = 2> <PLUS> <NUMBER = 3> <RIGHT_PARENTHESIS> <RIGHT_PARENTHESIS> 
+5: <KEYWORD = end> <DOT> <EOF> 
+---
+{'program': {'block': {'statement': {'begin_block': [{'exclamation': {'unary_operation': {'operation': '-', 'left': {'expression': {'binary_operation': {'operation': '+', 'left': {'binary_operation': {'operation': '+', 'left': {'unary_operation': {'operation': '-', 'left': {'number': 1}}}, 'right': {'unary_operation': {'operation': '-', 'left': {'number': 1}}}}}, 'right': {'number': 22}}}}}}}, {'exclamation': {'binary_operation': {'operation': '+', 'left': {'binary_operation': {'operation': '+', 'left': {'unary_operation': {'operation': '-', 'left': {'unary_operation': {'operation': '-', 'left': {'number': 1}}}}}, 'right': {'unary_operation': {'operation': '-', 'left': {'number': 1}}}}}, 'right': {'number': 22}}}}, {'exclamation': {'binary_operation': {'operation': '/', 'left': {'expression': {'binary_operation': {'operation': '+', 'left': {'number': 6}, 'right': {'number': 14}}}}, 'right': {'expression': {'binary_operation': {'operation': '*', 'left': {'unary_operation': {'operation': '-', 'left': {'number': 2}}}, 'right': {'expression': {'binary_operation': {'operation': '+', 'left': {'number': 2}, 'right': {'number': 3}}}}}}}}}}]}}}}
+---
+program
+└──block
+   └──statement
+      └──begin_block
+         └──exclamation
+            └──unary_operation
+               └──operation
+                  └──-
+               └──left
+                  └──expression
+                     └──+
+                        └──+
+                           └──unary_operation
+                              └──operation
+                                 └──-
+                              └──left
+                                 └──1
+                           └──unary_operation
+                              └──operation
+                                 └──-
+                              └──left
+                                 └──1
+                        └──22
+         └──exclamation
+            └──+
+               └──+
+                  └──unary_operation
+                     └──operation
+                        └──-
+                     └──left
+                        └──unary_operation
+                           └──operation
+                              └──-
+                           └──left
+                              └──1
+                  └──unary_operation
+                     └──operation
+                        └──-
+                     └──left
+                        └──1
+               └──22
+         └──exclamation
+            └──/
+               └──expression
+                  └──+
+                     └──6
+                     └──14
+               └──expression
+                  └──*
+                     └──unary_operation
+                        └──operation
+                           └──-
+                        └──left
+                           └──2
+                     └──expression
+                        └──+
+                           └──2
+                           └──3
+---
+print(-(-1 + -1 + 22))
+print(--1 + -1 + 22)
+print((6 + 14) / (-2 * (2 + 3)))
+---
+-20
+22
+-2.0

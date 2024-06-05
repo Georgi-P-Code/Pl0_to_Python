@@ -114,6 +114,10 @@ def test_constant_change():
         full_test("constant_change")
 
 
+def test_expressions():
+    full_test("expressions")
+
+
 def test_setting_outer_scope_declared_variable():
     full_test("setting_outer_scope_declared_variable")
 

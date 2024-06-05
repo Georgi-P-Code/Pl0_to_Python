@@ -71,8 +71,14 @@ class Translator:
             case "binary_operation":
                 result = self.evaluate_binary_operation(node)
 
+            case "unary_operation":
+                result = self.evaluate_unary_operation(node)
+
             case "assignment":
                 result = self.evaluate_assignment(node)
+
+            case "expression":
+                result = self.evaluate_expression(node)
 
             case "identifier":
                 result = self.evaluate_identifier(node)
@@ -264,12 +270,28 @@ class Translator:
         return f"{left} {operation} {right}"
 
 
+    def evaluate_unary_operation(self, node):
+        child_node = self.get_value(node)
+
+        operation = child_node["operation"]
+        left = self.evaluate( child_node["left"] )
+
+        return f"{operation}{left}"
+
+
     def evaluate_assignment(self, node):
         child = self.get_value(node)
         left = self.evaluate(child["left"])
         right = self.evaluate(child["right"])
 
         return f"{left} = {right}"
+
+
+    def evaluate_expression(self, node):
+        child = self.get_value(node)
+        expression = self.evaluate(child)
+
+        return f"({expression})"
 
 
     def evaluate_identifier(self, node):

@@ -307,7 +307,7 @@ class Pl0_parser_v1(Parser):
 
             self.match(Token_type.RIGHT_PARENTHESIS)
 
-            return ast
+            return {"expression": ast}
 
         error_snippet = self.original_text.split("\n")[current_token.line_number-1]
         error_position = current_token.position_number-1
