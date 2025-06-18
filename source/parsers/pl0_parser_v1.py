@@ -172,7 +172,7 @@ class Pl0_parser_v1(Parser):
             self.position += 1
 
             self.check_if_current_identifier_name_is_declared()
-            identifier_name =  self.match(Token_type.IDENTIFIER).value
+            identifier_name = self.match(Token_type.IDENTIFIER).value
 
             return {"call": {"identifier": identifier_name}}
 

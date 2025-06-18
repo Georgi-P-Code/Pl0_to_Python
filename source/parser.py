@@ -93,7 +93,7 @@ class Parser:
         existing_identifier_type = self.current_scope.identifiers.get(identifier_name)
 
         if existing_identifier_type == "procedure" and identifier_type == "procedure":
-            #Това позволява да се рпедефинират процедури
+            #Това позволява да се редефинират процедури
             return
 
         if existing_identifier_type:

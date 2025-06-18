@@ -1,0 +1,17 @@
+var max;
+
+procedure a;
+begin
+    !max;
+    max := max - 1;
+
+    if max > 0 then
+    begin
+        call a
+    end
+end;
+
+begin
+    max := 22;
+    call a
+end.

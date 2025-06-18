@@ -10,38 +10,41 @@ from utilities.ast_visualizer import Ast_visualizer
 from utilities.tokens_visualizer import Tokens_visualizer
 
 
-def run_file(file_name_with_extension: str, debugging=False):
-    path_to_file = f"../input/{file_name_with_extension}"
+def run_file(path_to_file: str, debugging=False):
 
     if not path.exists(path_to_file):
-        raise Exception(f'There is no file with name {file_name_with_extension} in the input directory.')
+        error_message = f'Error: "{path_to_file}" is not a valid file path.'
+        print(error_message)
+        return Exception(error_message)
 
-    file_name = path_to_file[path_to_file.rfind("/")+1:path_to_file.rfind(".")]
+    file_name = path.split(path_to_file)[-1]
 
     input_text = read_file(path_to_file)
 
-    print("------ Input Program ------")
-    print(input_text)
-    print("---------------------------")
+    if debugging:
+        print("------ Input Program ------")
+        print(input_text)
+        print("---------------------------")
 
     tokens = Tokenizer(input_text, ignore_new_line=True).tokenize()
 
-    tokens_visualization = Tokens_visualizer(tokens).visualize()
+    if debugging:
+        tokens_visualization = Tokens_visualizer(tokens).visualize()
 
-    print("--------- Tokens ----------")
-    print(f"{tokens_visualization}")
-    print("---------------------------")
+        print("--------- Tokens ----------")
+        print(f"{tokens_visualization}")
+        print("---------------------------")
 
     parser = Pl0_parser_v1(tokens, input_text)
     ast = parser.parse()
     scope_information = parser.root_scope
-    ast_visualization = Ast_visualizer(ast).visualize()
-
-    print("---------- AST ------------")
-    print(f"{ast_visualization}")
-    print("---------------------------")
 
     if debugging:
+        ast_visualization = Ast_visualizer(ast).visualize()
+        print("---------- AST ------------")
+        print(f"{ast_visualization}")
+        print("---------------------------")
+
         if not path.exists("../debugging/"):
             mkdir("../debugging/")
 
@@ -57,9 +60,10 @@ def run_file(file_name_with_extension: str, debugging=False):
 
     output_text = Translator(ast, scope_information).translate()
 
-    print("- Generated Python Program -")
-    print(output_text)
-    print("----------------------------")
+    if debugging:
+        print("- Generated Python Program -")
+        print(output_text)
+        print("----------------------------")
 
     if not path.exists("../output/"):
         mkdir("../output/")
@@ -75,5 +79,5 @@ def run_file(file_name_with_extension: str, debugging=False):
 
 
 def read_file(program_path: str):
-    with open(program_path, "r") as f:
+    with open(program_path, "r", encoding="utf-8") as f:
         return f.read()

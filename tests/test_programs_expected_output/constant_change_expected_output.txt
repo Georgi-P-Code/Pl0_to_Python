@@ -1,10 +1,10 @@
 [KEYWORD = const, IDENTIFIER = max, EQUALS, NUMBER = 100, SEMICOLON, KEYWORD = begin, IDENTIFIER = max, ASSIGNMENT, NUMBER = 200, SEMICOLON, EXCLAMATION, IDENTIFIER = max, KEYWORD = end, DOT, EOF]
 ---
-1: <KEYWORD = const> <IDENTIFIER = max> <EQUALS> <NUMBER = 100> <SEMICOLON> 
-2: <KEYWORD = begin> 
-3: <IDENTIFIER = max> <ASSIGNMENT> <NUMBER = 200> <SEMICOLON> 
-4: <EXCLAMATION> <IDENTIFIER = max> 
-5: <KEYWORD = end> <DOT> <EOF> 
+1: <KEYWORD = const> <IDENTIFIER = max> <EQUALS> <NUMBER = 100> <SEMICOLON>
+2: <KEYWORD = begin>
+3: <IDENTIFIER = max> <ASSIGNMENT> <NUMBER = 200> <SEMICOLON>
+4: <EXCLAMATION> <IDENTIFIER = max>
+5: <KEYWORD = end> <DOT> <EOF>
 ---
 {'program': {'block': {'constant_declarations': [{'constant_declaration': {'left': {'identifier': 'max'}, 'right': {'number': 100}}}], 'statement': {'begin_block': [{'assignment': {'left': {'identifier': 'max'}, 'right': {'number': 200}}}, {'exclamation': {'identifier': 'max'}}]}}}}
 ---
@@ -22,19 +22,4 @@ program
          └──exclamation
             └──max
 ---
-class Constant:
-    def __init__(self, **kvargs):
-        self.constants = kvargs
-    
-    def __getitem__(self, item):
-        return self.constants[item]
-    
-    def __setitem__(self, name, value):
-        raise Exception(f'Attempt to change "{name}" a constant value.')
 
-
-constant = Constant(max = 100)
-constant["max"] = 200
-print(constant["max"])
----
-Error: Attempt to change "max" a constant value.
